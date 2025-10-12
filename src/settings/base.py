@@ -1,7 +1,9 @@
 import os
 import sys
 from datetime import timedelta
+
 from celery.schedules import crontab
+from django.utils.translation import gettext_lazy as _
 
 import dj_database_url
 
@@ -67,6 +69,7 @@ INSTALLED_APPS = THIRD_PARTY_APPS + OUR_APPS
 MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -74,7 +77,6 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'corsheaders.middleware.CorsMiddleware', # BB
-    'django.middleware.common.CommonMiddleware'
 )
 
 ROOT_URLCONF = 'urls'
@@ -90,6 +92,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
                 'django.template.context_processors.static',
                 'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
@@ -104,6 +107,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'wsgi.application'
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+    ('en', _('English')),
+    ('zh-hans', _('Simplified Chinese')),
+)
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
@@ -111,6 +118,10 @@ USE_TZ = True
 SECRET_KEY = os.environ.get("SECRET_KEY", '(*0&74%ihg0ui+400+@%2pe92_c)x@w2m%6s(jhs^)dc$&&g93')
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 
 # =============================================================================

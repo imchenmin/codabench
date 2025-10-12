@@ -38,7 +38,7 @@
     {% if announcement %}
     <div style="margin:auto;" class="segment-container ui segment full-width">
         <div class="ui header">
-            <p>Announcement</p>
+            <p>{% trans "Announcement" %}</p>
         </div>
         <div class="container-content">
             <div class="center aligned column">
@@ -54,34 +54,46 @@
         <!-- Action Section -->
         <div id="action-container" class="segment-container ui segment full-width">
             <div class="ui header">
-                Get Started
+                {% trans "Get Started" %}
             </div>
             <div class="container-content">
                 <div class="center aligned column">
                     <h3 class="ui icon header">
                         <i class="trophy icon"></i>
-                        Participate
+                        {% trans "Participate" %}
                     </h3>
                     <div>
-                        <p>Find benchmarks that pique your interest! A benchmark allows you to test new algorithms against reference datasets OR (inverted benchmark) submit challenging data to reference algorithms.</p>
+                        <p>
+                            {% blocktrans trimmed %}
+                                Find benchmarks that pique your interest! A benchmark allows you to test new algorithms against reference datasets OR (inverted benchmark) submit challenging data to reference algorithms.
+                            {% endblocktrans %}
+                        </p>
                     </div>
                 </div>
                 <div class="center aligned column">
                     <h3 class="ui icon header">
                         <i class="users icon"></i>
-                        Organize
+                        {% trans "Organize" %}
                     </h3>
                     <div>
-                        <p>Organize a benchmark on Codabench. Start with our <a href="https://github.com/codalab/codabench/wiki/Getting-started-with-Codabench">tutorial</a>.</p>
+                        <p>
+                            {% blocktrans trimmed with tutorial_url="https://github.com/codalab/codabench/wiki/Getting-started-with-Codabench" %}
+                                Organize a benchmark on Codabench. Start with our <a href="{{ tutorial_url }}">tutorial</a>.
+                            {% endblocktrans %}
+                        </p>
                     </div>
                 </div>
                 <div class="center aligned column">
                     <h3 class="ui icon header">
                         <i class="code icon"></i>
-                        Contribute
+                        {% trans "Contribute" %}
                     </h3>
                     <div>
-                        <p>Interested in joining the development team? Join us on <a href="https://github.com/codalab/codabench">Github</a> or <a href="mailto:info@codalab.org">contact us</a> directly.</p>
+                        <p>
+                            {% blocktrans trimmed with github_url="https://github.com/codalab/codabench" contact_email="info@codalab.org" %}
+                                Interested in joining the development team? Join us on <a href="{{ github_url }}">Github</a> or <a href="mailto:{{ contact_email }}">contact us</a> directly.
+                            {% endblocktrans %}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -93,21 +105,21 @@
             <div class="column">
                 <div class="ui statistic">
                     <div class="value">{{ HOME_PAGE_COUNTERS_INFO.public_competitions }}</div>
-                    <div class="label">Public Competitions</div>
+                    <div class="label">{% trans "Public Competitions" %}</div>
                 </div>
             </div>
             <!-- Users -->
             <div class="column">
                 <div class="ui statistic">
                     <div class="value">{{ HOME_PAGE_COUNTERS_INFO.users }}</div>
-                    <div class="label">Users</div>
+                    <div class="label">{% trans "Users" %}</div>
                 </div>
             </div>
             <!-- Submissions -->
             <div class="column">
                 <div class="ui statistic">
                     <div class="value">{{ HOME_PAGE_COUNTERS_INFO.submissions }}</div>
-                    <div class="label">Submissions</div>
+                    <div class="label">{% trans "Submissions" %}</div>
                 </div>
             </div>
         </div>
@@ -115,77 +127,69 @@
         <!-- About Section -->
         <div id="about-container" class="segment-container ui segment full-width">
             <div class="ui header">
-                About Codabench
+                {% trans "About Codabench" %}
             </div>
             <div class="container-content">
                 <div class="ui middle stackable grid container">
                     <div class="eight wide left aligned column">
                         <div class="row column-bottom-padding">
-                            <h3 class="ui color-header header">What is Codabench?</h3>
+                            <h3 class="ui color-header header">{% trans "What is Codabench?" %}</h3>
                             <div class="ui divider"></div>
-                            <p>Codabench is an <a href="https://github.com/codalab/codabench">open source</a> platform allowing you to organize AI benchmarks. It is flexible and powerful, yet easy to use. You define tasks (e.g. datasets and metrics of success), then interface for submissions of code (algorithms), add some documentation pages, 
-                                make an upload and that's it! Your benchmark is created, ready to accept submissions of new algorithms. Everything can be fully customized, including the code of the scoring program. Organizers can even hook up their own compute workers to their benchmarks, enabling unlimited computing power. 
-                               Participants can try out their methods, get real-time feedback and results on a competitive leaderboard, detailed plots and more.</p>
-                            <p>In a unique twist, Codabench also allows you to create inverted benchmarks. Here, the roles of datasets and algorithms are interchanged. In this scenario, you set the reference algorithms and the participants contribute datasets.</p>
-                        </div>
-
-                        <div class="row column-bottom-padding">
-                            <h3 class="ui color-header header">What is CodaLab?</h3>
-                            <div class="ui divider"></div>
-                            <p>CodaLab Competitions is a powerful <a href="https://github.com/codalab/codalab-competitions">open source</a> framework for running competitions using result or code submissions. 
-                                You can participate in an existing competition or host your own competition for free.</p>
-                            <p>Most competitions hosted on CodaLab are machine learning (data science) competitions, but it is NOT limited to this application domain. 
-                                It can accommodate any problem for which a solution can be provided in the form of a zip archive containing a
-                                number of files to be evaluated quantitatively by a scoring program (provided by the organizers).
-                                The scoring program must return a numeric score, which is displayed on a leaderboard where
-                                the performances of participants are compared.</p>
-                        </div>
-
-                        <div class="row column-bottom-padding">
-                            <h3 class="ui color-header header">History of CodaLab</h3>
-                            <div class="ui divider"></div>
-                            <p>CodaLab was created in 2013 as a joint venture between Microsoft and Stanford University.
-                                Originally the vision was to create an ecosystem for conducting computational research
-                                in a more efficient, reproducible, and collaborative manner, combining worksheets and
-                                competitions. Worksheets capture complex research pipelines in a reproducible way and create "executable
-                                papers". Codabench is the continuity of CodaLab, a version 2 in which users can organize benchmarks.</p>
-                            <p>Some competitions have been organized using worksheets, but the competition platform
-                                and the worksheet platform have both a large user base and can be used independently. In
-                                2014,
-                                <a class="large_links" href="http://www.chalearn.org/">ChaLearn</a> joined to co-develop
-                                CodaLab competitions. Since 2015, University Paris-Saclay is
-                                community lead of CodaLab competitions, under the direction of Isabelle Guyon, professor
-                                of big data. CodaLab and Codabench are administered by the <a class="large_links" href="https://www.lisn.upsaclay.fr/">LISN staff.</a>
+                            <p>
+                                {% blocktrans trimmed with codabench_repo="https://github.com/codalab/codabench" %}
+                                    Codabench is an <a href="{{ codabench_repo }}">open source</a> platform allowing you to organize AI benchmarks. It is flexible and powerful, yet easy to use. You define tasks (e.g. datasets and metrics of success), then interface for submissions of code (algorithms), add some documentation pages, make an upload and that's it! Your benchmark is created, ready to accept submissions of new algorithms. Everything can be fully customized, including the code of the scoring program. Organizers can even hook up their own compute workers to their benchmarks, enabling unlimited computing power. Participants can try out their methods, get real-time feedback and results on a competitive leaderboard, detailed plots and more.
+                                {% endblocktrans %}
+                            </p>
+                            <p>
+                                {% blocktrans trimmed %}
+                                    In a unique twist, Codabench also allows you to create inverted benchmarks. Here, the roles of datasets and algorithms are interchanged. In this scenario, you set the reference algorithms and the participants contribute datasets.
+                                {% endblocktrans %}
                             </p>
                         </div>
 
                         <div class="row column-bottom-padding">
-                            <h3 class="ui color-header header">CodaLab in Research</h3>
+                            <h3 class="ui color-header header">{% trans "What is CodaLab?" %}</h3>
                             <div class="ui divider"></div>
-                            <p>CodaLab is used actively in research. In
-                                2019/2020, 400 new challenges were launched. Recent
-                                popular challenges organized with CodaLab include the
-                                <a href="https://competitions.codalab.org/competitions/25276">COVID-19
-                                  retweet prediction challenge,</a>&nbsp; the <a
-                                  href="https://competitions.codalab.org/competitions/24184">ECCV
-                                  2020 ChaLearn LAP Fair face recognition challenge</a>,
-                                the 2020 <a href="https://competitions.codalab.org/competitions/21639">DriveML
-                                  Huawei Autonomous Vehicle Challenge</a>, and high
-                                profile challenges include the <a class="large_links" href="https://web.see4c.eu/">2
-                                million Euro prize of the EU, organized by the See.4C consortium</a>, the <a class="large_links"
-                                href="https://competitions.codalab.org/competitions/16652">CIKM
-                                AnalytiCup 2017</a>, which attracted 493 participants,
-                              <a class="large_links"
-                                href="https://competitions.codalab.org/competitions/3221">MSCOCO</a>
-                              (633 participants) and the <a class="large_links"
-                                href="https://competitions.codalab.org/competitions/2321">ChaLearn
-                                AutoML challenge 2017</a> (687 participants).</p>
-                            <p>Since 2016, CodaLab offers the possibility of organizing machine learning challenges with
-                                code submission. The simplest machine learning challenges require only the submission of
-                                results, which are compared to a solution (or key) by a scoring program. Result submission
-                                challenges are less computationally expensive than code submission challenges. However, they offer less
-                                possibilities. In particular, code submission allows conducting fair benchmarks by
-                                executing submitted code in the same condition for all participants.</p>
+                            <p>
+                                {% blocktrans trimmed with codalab_repo="https://github.com/codalab/codalab-competitions" %}
+                                    CodaLab Competitions is a powerful <a href="{{ codalab_repo }}">open source</a> framework for running competitions using result or code submissions. You can participate in an existing competition or host your own competition for free.
+                                {% endblocktrans %}
+                            </p>
+                            <p>
+                                {% blocktrans trimmed %}
+                                    Most competitions hosted on CodaLab are machine learning (data science) competitions, but it is NOT limited to this application domain. It can accommodate any problem for which a solution can be provided in the form of a zip archive containing a number of files to be evaluated quantitatively by a scoring program (provided by the organizers). The scoring program must return a numeric score, which is displayed on a leaderboard where the performances of participants are compared.
+                                {% endblocktrans %}
+                            </p>
+                        </div>
+
+                        <div class="row column-bottom-padding">
+                            <h3 class="ui color-header header">{% trans "History of CodaLab" %}</h3>
+                            <div class="ui divider"></div>
+                            <p>
+                                {% blocktrans trimmed %}
+                                    CodaLab was created in 2013 as a joint venture between Microsoft and Stanford University. Originally the vision was to create an ecosystem for conducting computational research in a more efficient, reproducible, and collaborative manner, combining worksheets and competitions. Worksheets capture complex research pipelines in a reproducible way and create "executable papers". Codabench is the continuity of CodaLab, a version 2 in which users can organize benchmarks.
+                                {% endblocktrans %}
+                            </p>
+                            <p>
+                                {% blocktrans trimmed with chalearn_url="http://www.chalearn.org/" lisn_url="https://www.lisn.upsaclay.fr/" %}
+                                    Some competitions have been organized using worksheets, but the competition platform and the worksheet platform have both a large user base and can be used independently. In 2014, <a class="large_links" href="{{ chalearn_url }}">ChaLearn</a> joined to co-develop CodaLab competitions. Since 2015, University Paris-Saclay is community lead of CodaLab competitions, under the direction of Isabelle Guyon, professor of big data. CodaLab and Codabench are administered by the <a class="large_links" href="{{ lisn_url }}">LISN staff.</a>
+                                {% endblocktrans %}
+                            </p>
+                        </div>
+
+                        <div class="row column-bottom-padding">
+                            <h3 class="ui color-header header">{% trans "CodaLab in Research" %}</h3>
+                            <div class="ui divider"></div>
+                            <p>
+                                {% blocktrans trimmed with covid_url="https://competitions.codalab.org/competitions/25276" eccv_url="https://competitions.codalab.org/competitions/24184" driveml_url="https://competitions.codalab.org/competitions/21639" see4c_url="https://web.see4c.eu/" cikm_url="https://competitions.codalab.org/competitions/16652" mscoco_url="https://competitions.codalab.org/competitions/3221" automl_url="https://competitions.codalab.org/competitions/2321" %}
+                                    CodaLab is used actively in research. In 2019/2020, 400 new challenges were launched. Recent popular challenges organized with CodaLab include the <a href="{{ covid_url }}">COVID-19 retweet prediction challenge</a>, the <a href="{{ eccv_url }}">ECCV 2020 ChaLearn LAP Fair face recognition challenge</a>, the 2020 <a href="{{ driveml_url }}">DriveML Huawei Autonomous Vehicle Challenge</a>, and high profile challenges include the <a class="large_links" href="{{ see4c_url }}">2 million Euro prize of the EU, organized by the See.4C consortium</a>, the <a class="large_links" href="{{ cikm_url }}">CIKM AnalytiCup 2017</a>, which attracted 493 participants, <a class="large_links" href="{{ mscoco_url }}">MSCOCO</a> (633 participants) and the <a class="large_links" href="{{ automl_url }}">ChaLearn AutoML challenge 2017</a> (687 participants).
+                                {% endblocktrans %}
+                            </p>
+                            <p>
+                                {% blocktrans trimmed %}
+                                    Since 2016, CodaLab offers the possibility of organizing machine learning challenges with code submission. The simplest machine learning challenges require only the submission of results, which are compared to a solution (or key) by a scoring program. Result submission challenges are less computationally expensive than code submission challenges. However, they offer less possibilities. In particular, code submission allows conducting fair benchmarks by executing submitted code in the same condition for all participants.
+                                {% endblocktrans %}
+                            </p>
                             <p>CodaLab has been providing free resources for challenge organizers who want to run high
                                 impact events, within a pre-approved agreed upon budget. New since version 1.5: organizers can
                                 hook up their own compute workers to the backend of CodaLab to redirect the code submissions,
@@ -197,7 +201,7 @@
                     <!-- News Section -->
                     <div class="eight wide center aligned column">
                         <div class="row news-column-bottom-padding">
-                            <h1 class="ui color-header header">News</h1>
+                            <h1 class="ui color-header header">{% trans "News" %}</h1>
                         </div>
                         {% for post in news_posts %}
                         <div class="row news-column-bottom-padding news">
@@ -222,7 +226,7 @@
         <!-- Citation Section -->
         <div id="cite-container" class="segment-container ui segment full-width">
             <div class="ui header">
-                Cite Codabench in your research
+                {% trans "Cite Codabench in your research" %}
             </div>
             <div class="row container-content">
                 <pre>

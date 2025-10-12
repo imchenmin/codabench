@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
 <div class="sixteen wide mobile six wide computer centered column">
     {% if ENABLE_SIGN_IN %}
     <h2 class="ui blue centered header">
-        Login
+        {% trans "Login" %}
     </h2>
     {% if activation_error %}
+    {% url 'accounts:resend_activation' as resend_activation_url %}
     <div class="ui red message">
-        {{ activation_error }} or click <a href="{% url 'accounts:resend_activation' %}">here</a> to send the activation email again
+        {% blocktrans trimmed with activation_error=activation_error resend_url=resend_activation_url %}
+            {{ activation_error }} or click <a href="{{ resend_url }}">here</a> to send the activation email again
+        {% endblocktrans %}
     </div>
     {% endif %}
     <div class="ui stacked segment">
@@ -30,7 +33,7 @@
                     <i class="user icon"></i>
                     <input type="text"
                            name="username"
-                           placeholder="username or email"
+                           placeholder="{% trans "username or email" %}"
                            id="id_username"
                            value="{{ form.username.value|default:''}}"
                            maxlength="{{ form.username.field.max_length }}"
@@ -49,19 +52,29 @@
                     <i class="lock icon"></i>
                     <input type="password"
                            name="password"
-                           placeholder="password"
+                           placeholder="{% trans "password" %}"
                            id="id_password"
                            value="{{ form.password.value|default:''}}"
                            maxlength="{{ form.password.field.max_length }}"
                            required>
                 </div>
             </div>
-            <button class="ui fluid blue submit button" type="submit">Log In</button>
+            <button class="ui fluid blue submit button" type="submit">{% trans "Log In" %}</button>
             <div class="ui divider"></div>
             {% if ENABLE_SIGN_UP %}
-                <p>Don't have an account? <a href="{% url 'accounts:signup' %}">Sign Up</a></p>
+                {% url 'accounts:signup' as signup_url %}
+                <p>
+                    {% blocktrans trimmed with signup_url=signup_url %}
+                        Don't have an account? <a href="{{ signup_url }}">Sign Up</a>
+                    {% endblocktrans %}
+                </p>
             {% endif %}
-            <p><a href="{% url 'accounts:password_reset' %}">Forgot your password?</a></p>
+            {% url 'accounts:password_reset' as password_reset_url %}
+            <p>
+                {% blocktrans trimmed with password_reset_url=password_reset_url %}
+                    <a href="{{ password_reset_url }}">Forgot your password?</a>
+                {% endblocktrans %}
+            </p>
 
             <div class="ui error message"></div>
         </form>
@@ -71,12 +84,16 @@
     <!-- Auth Organization Buttons -->
     {% if auth_organizations %}
     <div class="sixteen wide mobile six wide computer centered column">
-        <h3 class="ui centered header">Organization Login</h3>
+        <h3 class="ui centered header">{% trans "Organization Login" %}</h3>
         <form method="POST" action="{% url 'oidc_configurations:organization_oidc_login' %}">
             {% csrf_token %}
             <div>
                 <input type="checkbox" name="checkbox" id="id_checkbox" required>
-                <label for="id_checkbox">I accept the <a href="https://github.com/codalab/codalab-competitions/wiki/Privacy" target="_blank">terms and conditions</a>.</label>
+                <label for="id_checkbox">
+                    {% blocktrans trimmed %}
+                        I accept the <a href="https://github.com/codalab/codalab-competitions/wiki/Privacy" target="_blank">terms and conditions</a>.
+                    {% endblocktrans %}
+                </label>
             </div>
             {% for organization in auth_organizations %}
             <button class="ui fluid primary submit button"
@@ -86,7 +103,7 @@
                     style="background-color: {{ organization.button_bg_color }};
                            color: {{ organization.button_text_color }};
                            margin-bottom:5px;">
-                Login with {{ organization.name }}
+                {% blocktrans trimmed with organization_name=organization.name %}Login with {{ organization_name }}{% endblocktrans %}
             </button>
             {% endfor %}
         </form>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 
 {% block extra_head %}
@@ -9,7 +9,7 @@
     {% if user.is_authenticated %}
         {% if user.is_superuser %}
             <div class="ui container">
-                <h1>Monitor queues</h1>
+                <h1>{% trans "Monitor queues" %}</h1>
                 <div id="external_monitors" class="ui two column grid">
                     <div class="column">
                         <div class="ui fluid card">
@@ -17,11 +17,13 @@
                                 <img class="ui large image" src="{% static 'img/RabbitMQ.png' %}">
                             </a>
                             <div class="content">
-                                <a class="header" href="{{ RABBITMQ_MANAGEMENT_URL }}" target="_blank">RabbitMQ</a>
+                                <a class="header" href="{{ RABBITMQ_MANAGEMENT_URL }}" target="_blank">{% trans "RabbitMQ" %}</a>
                                 <div class="meta">
-                                    This page allows admins to view connections, queued messages, message rates, channels,
-                                    exchanges, and other administrative features relating to RabbitMQ e.g. Creating users,
-                                    adding v-hosts, and creating policies.
+                                    {% blocktrans trimmed %}
+                                        This page allows admins to view connections, queued messages, message rates, channels,
+                                        exchanges, and other administrative features relating to RabbitMQ e.g. Creating users,
+                                        adding v-hosts, and creating policies.
+                                    {% endblocktrans %}
                                 </div>
                             </div>
                         </div>
@@ -32,15 +34,15 @@
                                 <img class="ui large image" src="{% static 'img/Flower.png' %}">
                             </a>
                             <div class="content">
-                                <a class="header" href="{{ FLOWER_URL }}" target="_blank">Flower</a>
+                                <a class="header" href="{{ FLOWER_URL }}" target="_blank">{% trans "Flower" %}</a>
                                 <div class="meta">
-                                    Flower is a powerful web-based Celery monitoring tool designed to keep track of our
-                                    tasks.
-                                    Admins may view the state of which tasks were run, with what arguments, and many more
-                                    features. Here you may also view which queues your celery workers are consuming, and the
-                                    state of any tasks in them. At last, there is also a great monitoring page for viewing
-                                    the
-                                    systemic impact of your workers.
+                                    {% blocktrans trimmed %}
+                                        Flower is a powerful web-based Celery monitoring tool designed to keep track of our
+                                        tasks. Admins may view the state of which tasks were run, with what arguments, and many more
+                                        features. Here you may also view which queues your celery workers are consuming, and the
+                                        state of any tasks in them. At last, there is also a great monitoring page for viewing the
+                                        systemic impact of your workers.
+                                    {% endblocktrans %}
                                 </div>
                             </div>
                         </div>
@@ -50,15 +52,18 @@
         {% else %}
             <div class="ui container">
                 <div class="ui red message">
-                    You do not have access to this page!
+                    {% trans "You do not have access to this page!" %}
                 </div>
             </div>
         {% endif %}
     {% else %}
         <div class="ui container">
+            {% url 'accounts:login' as login_url %}
+            {% url 'accounts:signup' as signup_url %}
             <div class="ui yellow message">
-                <a href="{% url 'accounts:login' %}">Log In</a> or
-                <a href="{% url 'accounts:signup' %}">Sign Up</a> to view this page
+                {% blocktrans trimmed with login_url=login_url signup_url=signup_url %}
+                    <a href="{{ login_url }}">Log In</a> or <a href="{{ signup_url }}">Sign Up</a> to view this page
+                {% endblocktrans %}
             </div>
         </div>
     {% endif %}

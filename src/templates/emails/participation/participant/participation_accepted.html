@@ -1,12 +1,14 @@
 {% extends 'emails/base_email.html' %}
+{% load i18n %}
 
 {% block content %}
     <p>
-        Your application for the
-        <a href="http://{{ site.domain }}{{ participant.competition.get_absolute_url }}">{{ participant.competition.title }}</a>
-        competition has been <b>accepted</b>. Get ready to showcase your skills and compete with other talented individuals.
+        {% blocktrans trimmed with competition_title=participant.competition.title site_domain=site.domain competition_url=participant.competition.get_absolute_url %}
+            Your application for the
+            <a href="http://{{ site_domain }}{{ competition_url }}">{{ competition_title }}</a>
+            competition has been <b>accepted</b>. Get ready to showcase your skills and compete with other talented individuals.
+        {% endblocktrans %}
     </p>
 {% endblock %}
-
 
 

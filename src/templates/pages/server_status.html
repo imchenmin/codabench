@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 
 {% block extra_head %}
@@ -8,34 +8,34 @@
 {% block content %}
     {% if user.is_authenticated %}
         <div class="ui container">
-            <h1>Recent Submissions</h1>
+            <h1>{% trans "Recent Submissions" %}</h1>
             <label>
-                <input type="checkbox" id="show_child_checkbox" {% if show_child_submissions %}checked{% endif %}> Show child submissions
+                <input type="checkbox" id="show_child_checkbox" {% if show_child_submissions %}checked{% endif %}> {% trans "Show child submissions" %}
             </label>
             <span class="ui mini circular icon button"
-                data-tooltip="Child submissions are created when a competition has multiple tasks (one child for each task)."
+                data-tooltip="{% trans "Child submissions are created when a competition has multiple tasks (one child for each task)." %}"
                 data-position="top center">
                 <i class="question icon"></i>
             </span>
             <table class="ui table">
                 <thead>
-                <th>Competition</th>
-                <th>Submission PK</th>
+                <th>{% trans "Competition" %}</th>
+                <th>{% trans "Submission PK" %}</th>
                 {% if show_child_submissions %}
-                    <th>Parent PK</th>
+                    <th>{% trans "Parent PK" %}</th>
                 {% endif %}
-                <th>Size</th>
-                <th>Submitter</th>
-                <th>Queue</th>
-                <th>Ingestion Hostname</th>
-                <th>Scoring Hostname</th>
-                <th>Submitted at</th>
-                <th>Status</th>
+                <th>{% trans "Size" %}</th>
+                <th>{% trans "Submitter" %}</th>
+                <th>{% trans "Queue" %}</th>
+                <th>{% trans "Ingestion Hostname" %}</th>
+                <th>{% trans "Scoring Hostname" %}</th>
+                <th>{% trans "Submitted at" %}</th>
+                <th>{% trans "Status" %}</th>
                 </thead>
                 <tbody>
                     {% if not submissions %}
                     <tr class="center aligned">
-                        <td colspan="100%"><em>No submissions, yet!</em></td>
+                        <td colspan="100%"><em>{% trans "No submissions, yet!" %}</em></td>
                     </tr>
                     {% endif %}
                     {% for submission in submissions %}
@@ -50,7 +50,7 @@
                         <td>{{ submission.competition_queue }}</td>
                         <td>{{ submission.ingestion_worker_hostname }}</td>
                         <td>{{ submission.scoring_worker_hostname }}</td>
-                        <td>{{ submission.created_when|timesince }} ago</td>
+                        <td>{% blocktrans trimmed with time_ago=submission.created_when|timesince %}{{ time_ago }} ago{% endblocktrans %}</td>
                         <td>{{ submission.status }}</td>
                     </tr>
                     {% endfor %}
@@ -62,20 +62,20 @@
             <div class="pagination-nav">
                 {% if submissions.has_previous %}
                 <span class="float-left">
-                    <a class="ui button" href="?page=1{% if show_child_submissions %}&show_child_submissions={{ show_child_submissions }}{% endif %}">First</a>
-                    <a class="ui button" href="?page={{ submissions.previous_page_number }}{% if show_child_submissions %}&show_child_submissions={{ show_child_submissions }}{% endif %}">Previous</a>
+                    <a class="ui button" href="?page=1{% if show_child_submissions %}&show_child_submissions={{ show_child_submissions }}{% endif %}">{% trans "First" %}</a>
+                    <a class="ui button" href="?page={{ submissions.previous_page_number }}{% if show_child_submissions %}&show_child_submissions={{ show_child_submissions }}{% endif %}">{% trans "Previous" %}</a>
                 </span>
                 {% endif %}
                 
                 <span class="center">
-                    Page {{ submissions.number }} of {{ paginator.num_pages }}
+                    {% blocktrans trimmed with current_page=submissions.number total_pages=paginator.num_pages %}Page {{ current_page }} of {{ total_pages }}{% endblocktrans %}
                 </span>
                 
                 
                 {% if submissions.has_next %}
                 <span class="float-right">
-                    <a class="ui button" href="?page={{ submissions.next_page_number }}{% if show_child_submissions %}&show_child_submissions={{ show_child_submissions }}{% endif %}">Next</a>
-                <a class="ui button" href="?page={{ paginator.num_pages }}{% if show_child_submissions %}&show_child_submissions={{ show_child_submissions }}{% endif %}">Last</a>
+                    <a class="ui button" href="?page={{ submissions.next_page_number }}{% if show_child_submissions %}&show_child_submissions={{ show_child_submissions }}{% endif %}">{% trans "Next" %}</a>
+                <a class="ui button" href="?page={{ paginator.num_pages }}{% if show_child_submissions %}&show_child_submissions={{ show_child_submissions }}{% endif %}">{% trans "Last" %}</a>
                 </span>
                 {% endif %}
 
@@ -84,9 +84,12 @@
         </div>
     {% else %}
         <div class="ui container">
+            {% url 'accounts:login' as login_url %}
+            {% url 'accounts:signup' as signup_url %}
             <div class="ui yellow message">
-                <a href="{% url 'accounts:login' %}">Log In</a> or
-                <a href="{% url 'accounts:signup' %}">Sign Up</a> to view this page
+                {% blocktrans trimmed with login_url=login_url signup_url=signup_url %}
+                    <a href="{{ login_url }}">Log In</a> or <a href="{{ signup_url }}">Sign Up</a> to view this page
+                {% endblocktrans %}
             </div>
         </div>
     {% endif %}

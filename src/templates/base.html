@@ -1,7 +1,7 @@
-{% load static %}
+{% load static i18n %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -64,9 +64,9 @@
 <!-- Sidebar Menu -->
 <div class="ui thin sidebar left inverted vertical overlay menu">
     <div class="ui container">
-        <a href="{% url "pages:home" %}" class="item">Competitions</a>
-        <a class="item">Chahub</a>
-        <a href="https://chagrade.lri.fr/" class="item">Chagrade</a>
+        <a href="{% url "pages:home" %}" class="item">{% trans "Competitions" %}</a>
+        <a class="item">{% trans "Chahub" %}</a>
+        <a href="https://chagrade.lri.fr/" class="item">{% trans "Chagrade" %}</a>
     </div>
 </div>
 
@@ -88,7 +88,7 @@
                     </a>
                     <div class="ui search" id="site-wide-competition-search">
                         <div class="ui left icon input search-width">
-                            <input id="competition-search" class="prompt" type="text" placeholder="Search Competitions">
+                            <input id="competition-search" class="prompt" type="text" placeholder="{% trans "Search Competitions" %}">
                             <i class="search icon"></i>
                         </div>
                         <div class="results search-width scrollable-height-limit"></div>
@@ -97,12 +97,28 @@
                 <div class="right menu item">
                     <a class="item" href="{% url "competitions:public" %}">
                         <i class="ui small trophy icon"></i>
-                        Benchmarks/Competitions
+                        {% trans "Benchmarks/Competitions" %}
                     </a>
                     <a class="item" href="{% url "datasets:public" %}">
                         <i class="ui small database icon"></i>
-                        Datasets
+                        {% trans "Datasets" %}
                     </a>
+                    {% get_current_language as CURRENT_LANGUAGE_CODE %}
+                    {% get_language_info_list for LANGUAGES as languages_info %}
+                    <div class="ui dropdown item language-dropdown">
+                        <i class="ui small globe icon"></i>
+                        <span class="text language-label">{{ CURRENT_LANGUAGE_CODE|language_name_local|default:_("Language") }}</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            {% for language in languages_info %}
+                                <a class="item language-option{% if language.code == CURRENT_LANGUAGE_CODE %} active selected{% endif %}"
+                                   href="#"
+                                   data-language-code="{{ language.code }}">
+                                    {{ language.name_local }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
                     {% if user.is_authenticated %}
                         <div selenium="user_dropdown" id="user_dropdown" class="ui dropdown item">
                             <div class="text">
@@ -112,32 +128,32 @@
                             <i class="dropdown icon"></i>
                             <div class="menu">
                                 <!-- Admin management -->
-                                <div class="header">Admin management</div>
-                                    <a class="item" href="{% url "pages:server_status" %}">Server Status</a>
+                                <div class="header">{% trans "Admin management" %}</div>
+                                    <a class="item" href="{% url "pages:server_status" %}">{% trans "Server Status" %}</a>
                                     {% if request.user.is_staff %}
-                                        <a class="item" href="{% url "pages:monitor_queues" %}">Monitor Queues</a>
-                                        <a class="item" href="{% url "admin:index" %}">Django Admin</a>
-                                        <a class="item" href="{% url "su_login" %}">Change User</a>
-                                        <a class="item" href="{% url "analytics:analytics" %}">Analytics</a>
+                                        <a class="item" href="{% url "pages:monitor_queues" %}">{% trans "Monitor Queues" %}</a>
+                                        <a class="item" href="{% url "admin:index" %}">{% trans "Django Admin" %}</a>
+                                        <a class="item" href="{% url "su_login" %}">{% trans "Change User" %}</a>
+                                        <a class="item" href="{% url "analytics:analytics" %}">{% trans "Analytics" %}</a>
                                     {% endif %}
                                 <div class="ui divider"></div>
                                 <!-- My Resources -->
-                                <div class="header">My Resources</div>
-                                <a class="item" href="{% url 'competitions:management' %}"><i class="icon bi bi-trophy"></i>Competitions</a>
-                                <a selenium="resources" class="item" href="{% url 'tasks:task_management' %}"><i class="icon bi bi-folder"></i>Resources</a>
-                                 <a class="item" href="{% url 'queues:management' %}"><i class="icon bi bi-hourglass"></i>Queues</a>
+                                <div class="header">{% trans "My Resources" %}</div>
+                                <a class="item" href="{% url 'competitions:management' %}"><i class="icon bi bi-trophy"></i>{% trans "Competitions" %}</a>
+                                <a selenium="resources" class="item" href="{% url 'tasks:task_management' %}"><i class="icon bi bi-folder"></i>{% trans "Resources" %}</a>
+                                 <a class="item" href="{% url 'queues:management' %}"><i class="icon bi bi-hourglass"></i>{% trans "Queues" %}</a>
                                 <div class="ui divider"></div>
                                 <!-- Account -->
-                                <div class="header">Account</div>
-                                <a class="item" href="{% url 'profiles:user_profile' username=user.username %}"><i class="icon bi bi-person"></i>View Profile</a>
-                                <a class="item" href="{% url 'profiles:user_edit' username=user.username %}"></i><i class="icon bi bi-pencil-square"></i>Edit profile</a>
-                                <a class="item" href="{% url 'accounts:user_account' username=user.username %}"><i class="icon bi bi-gear"></i>Settings</a>
-                                <a class="item" href="{% url 'profiles:user_notifications' username=user.username %}"></i><i class="icon bi bi-bell"></i>Notifications</a>
-                                <a class="item" href="{% url 'accounts:password_reset' %}"><i class="icon bi bi-lock"></i>Change Password</a>
-                                <a class="item" href="{% url 'accounts:logout' %}"><i class="icon bi bi-door-open"></i>Logout</a>
+                                <div class="header">{% trans "Account" %}</div>
+                                <a class="item" href="{% url 'profiles:user_profile' username=user.username %}"><i class="icon bi bi-person"></i>{% trans "View Profile" %}</a>
+                                <a class="item" href="{% url 'profiles:user_edit' username=user.username %}"></i><i class="icon bi bi-pencil-square"></i>{% trans "Edit profile" %}</a>
+                                <a class="item" href="{% url 'accounts:user_account' username=user.username %}"><i class="icon bi bi-gear"></i>{% trans "Settings" %}</a>
+                                <a class="item" href="{% url 'profiles:user_notifications' username=user.username %}"></i><i class="icon bi bi-bell"></i>{% trans "Notifications" %}</a>
+                                <a class="item" href="{% url 'accounts:password_reset' %}"><i class="icon bi bi-lock"></i>{% trans "Change Password" %}</a>
+                                <a class="item" href="{% url 'accounts:logout' %}"><i class="icon bi bi-door-open"></i>{% trans "Logout" %}</a>
                                 <div class="ui divider"></div>
 
-                                <div class="header">Organizations</div>
+                                <div class="header">{% trans "Organizations" %}</div>
                             {% for org in user.organizations.all %}
                                 {% if user in org.user_record.all %}
                                 <a class="item" href="{% url 'profiles:organization_profile' pk=org.id %}">
@@ -148,19 +164,24 @@
                             {% endfor %}
                                 <a class="item" href="{% url 'profiles:organization_create' %}">
                                     <i class="plus icon"></i>
-                                    Create Organization
+                                    {% trans "Create Organization" %}
                                 </a>
                             </div>
                         </div>
                     {% else %}
-                        <a href="{% url 'accounts:login' %}" class="ui button style_button item">Login</a>
+                        <a href="{% url 'accounts:login' %}" class="ui button style_button item">{% trans "Login" %}</a>
                         {% if ENABLE_SIGN_UP %}
-                            <a href="{% url 'accounts:signup' %}" class="ui button style_button item">Sign-up</a>
+                            <a href="{% url 'accounts:signup' %}" class="ui button style_button item">{% trans "Sign-up" %}</a>
                         {% endif %}
                     {% endif %}
                 </div>
             </div>
         </div>
+        <form id="language-switcher-form" class="language-switcher-form" action="{% url 'set_language' %}" method="post" hidden>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path|default:'/' }}">
+            <input type="hidden" name="language" id="language-switcher-input">
+        </form>
         {% block top_div_extra_content %}{% endblock %}
     </div>
 </div>
@@ -177,29 +198,37 @@
     <div class="ui container">
         <div class="ui stackable inverted equal height stackable grid">
             <div class="three wide column">
-                <h4 class="ui inverted header">Chasuite</h4>
+                <h4 class="ui inverted header">{% trans "Chasuite" %}</h4>
                 <div class="ui inverted link list">
-                    <a href="https://codalab.lisn.fr/" class="item">Competitions v1.6</a>
-                    <a href="http://chahub.org/" class="item">Chahub</a>
-                    <a href="https://chagrade.lri.fr/" class="item">Chagrade</a>
+                    <a href="https://codalab.lisn.fr/" class="item">{% trans "Competitions v1.6" %}</a>
+                    <a href="http://chahub.org/" class="item">{% trans "Chahub" %}</a>
+                    <a href="https://chagrade.lri.fr/" class="item">{% trans "Chagrade" %}</a>
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class="ui inverted header">About</h4>
+                <h4 class="ui inverted header">{% trans "About" %}</h4>
                 <div class="ui inverted link list">
-                    <a href="https://github.com/codalab/codalab-competitions/wiki/Project_About_CodaLab" class="item">About</a>
-                    <a href="https://github.com/codalab/codabench" class="item">Github</a>
-                    <a href="https://github.com/codalab/codalab-competitions/wiki/Privacy" class="item">Privacy and Terms</a>
-                    <a href="{% url 'schema-swagger-ui' %}" class="item">API Docs</a>
+                    <a href="https://github.com/codalab/codalab-competitions/wiki/Project_About_CodaLab" class="item">{% trans "About" %}</a>
+                    <a href="https://github.com/codalab/codabench" class="item">{% trans "Github" %}</a>
+                    <a href="https://github.com/codalab/codalab-competitions/wiki/Privacy" class="item">{% trans "Privacy and Terms" %}</a>
+                    <a href="{% url 'schema-swagger-ui' %}" class="item">{% trans "API Docs" %}</a>
                 </div>
             </div>
             <div class="three wide column">
                 {# Empty for now, can add a list of links here if needed! #}
             </div>
             <div class="seven wide column">
-                <h4 class="ui inverted header">CodaBench</h4>
-                <p>Join us on <a href="https://github.com/codalab/codabench" target="_blank">Github</a> for contact &amp; bug reports</p>
-                <p>Questions about the platform? See our <a href="https://github.com/codalab/codabench/wiki" target="_blank">Wiki</a> for more information.</p>
+                <h4 class="ui inverted header">{% trans "CodaBench" %}</h4>
+                <p>
+                    {% blocktrans trimmed with github_url="https://github.com/codalab/codabench" %}
+                        Join us on <a href="{{ github_url }}" target="_blank">Github</a> for contact &amp; bug reports
+                    {% endblocktrans %}
+                </p>
+                <p>
+                    {% blocktrans trimmed with wiki_url="https://github.com/codalab/codabench/wiki" %}
+                        Questions about the platform? See our <a href="{{ wiki_url }}" target="_blank">Wiki</a> for more information.
+                    {% endblocktrans %}
+                </p>
             </div>
         </div>
     </div>
@@ -234,6 +263,8 @@
     <script src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js"></script>
     <!-- Ours -->
 
+    <script src="{% url 'javascript-catalog' %}"></script>
+
 
 
     <script>
@@ -244,11 +275,19 @@
         CODALAB = {
             state: {
                 user: JSON.parse("{{ USER_JSON_DATA|escapejs }}"),
+                language_code: "{{ LANGUAGE_CODE }}",
                 public_env_variables: {
                     MAX_EXECUTION_TIME_LIMIT:MAX_EXECUTION_TIME_LIMIT
                 }
             }
         }
+
+        window.APP_LANGUAGE = "{{ LANGUAGE_CODE }}"
+        window.gettext = window.gettext || function (msgid) { return msgid }
+        window.ngettext = window.ngettext || function (singular, plural, count) {
+            return count === 1 ? singular : plural
+        }
+        window.pgettext = window.pgettext || function (_context, msgid) { return msgid }
 
         {# Doing this here to append functionality to user data #}
         CODALAB.state.user.has_competition_admin_privileges = competition => {
@@ -347,6 +386,14 @@
                     },
                     url: `${URLS.API}competitions/?search={query}`
                 },
+            })
+
+            $('.language-dropdown').dropdown({on: 'click'})
+            $('.language-option').on('click', function (event) {
+                event.preventDefault()
+                const languageCode = $(this).data('language-code')
+                $('#language-switcher-input').val(languageCode)
+                $('#language-switcher-form').submit()
             })
         })
     </script>

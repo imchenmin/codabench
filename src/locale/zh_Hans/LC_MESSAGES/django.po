@@ -1,0 +1,735 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: codabench\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-12 03:19+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: Codabench Contributors\n"
+"Language-Team: Chinese (Simplified)\n"
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/apps/competitions/admin.py:10
+msgid "Private non-test"
+msgstr "私有（非测试）"
+
+#: src/apps/competitions/admin.py:24
+msgid "Submissions >= 25 and Participants >= 10"
+msgstr "提交数量 ≥ 25 且参赛者 ≥ 10"
+
+#: src/settings/base.py:111
+msgid "English"
+msgstr "英语"
+
+#: src/settings/base.py:112
+msgid "Simplified Chinese"
+msgstr "简体中文"
+
+#: src/templates/404.html:8
+msgid "Could not find the page you requested."
+msgstr "未找到你请求的页面。"
+
+#: src/templates/404.html:10
+msgid ""
+"If you are the challenge organizer and this URL previously pointed to a "
+"valid competition and it is now missing please contact us at "
+"info@codabench.org for more information."
+msgstr "如果你是该挑战的组织者，并且此 URL 之前指向的有效竞赛现已缺失，请发送邮件至 info@codabench.org 联系我们。"
+
+#: src/templates/404.html:15
+#, python-format
+msgid ""
+"If this is an error, please file a <a href=\"%(bug_report_url)s\">bug "
+"report</a>. For more information about Codabench, check out the <a "
+"href=\"%(wiki_url)s\">wiki</a>."
+msgstr ""
+"如果这是错误，请提交 <a href=\"%(bug_report_url)s\">缺陷报告</a>。了解 Codabench 的更多信息，请访问 <a"
+" href=\"%(wiki_url)s\">Wiki</a>。"
+
+#: src/templates/404.html:19
+msgid "Return to Home"
+msgstr "返回首页"
+
+#: src/templates/admin/base_site.html:5
+msgid "Codalab v2 Admin"
+msgstr "Codalab v2 管理后台"
+
+#: src/templates/base.html:67 src/templates/base.html:142
+msgid "Competitions"
+msgstr "竞赛"
+
+#: src/templates/base.html:68 src/templates/base.html:204
+msgid "Chahub"
+msgstr "Chahub"
+
+#: src/templates/base.html:69 src/templates/base.html:205
+msgid "Chagrade"
+msgstr "Chagrade"
+
+#: src/templates/base.html:91
+msgid "Search Competitions"
+msgstr "搜索竞赛"
+
+#: src/templates/base.html:100
+msgid "Benchmarks/Competitions"
+msgstr "基准/竞赛"
+
+#: src/templates/base.html:104
+msgid "Datasets"
+msgstr "数据集"
+
+#: src/templates/base.html:110
+msgid "Language"
+msgstr "语言"
+
+#: src/templates/base.html:131
+msgid "Admin management"
+msgstr "管理员管理"
+
+#: src/templates/base.html:132
+msgid "Server Status"
+msgstr "服务器状态"
+
+#: src/templates/base.html:134
+msgid "Monitor Queues"
+msgstr "队列监控"
+
+#: src/templates/base.html:135
+msgid "Django Admin"
+msgstr "Django 管理"
+
+#: src/templates/base.html:136
+msgid "Change User"
+msgstr "切换用户"
+
+#: src/templates/base.html:137
+msgid "Analytics"
+msgstr "分析"
+
+#: src/templates/base.html:141
+msgid "My Resources"
+msgstr "我的资源"
+
+#: src/templates/base.html:143
+msgid "Resources"
+msgstr "资源"
+
+#: src/templates/base.html:144
+msgid "Queues"
+msgstr "队列"
+
+#: src/templates/base.html:147
+msgid "Account"
+msgstr "账号"
+
+#: src/templates/base.html:148
+msgid "View Profile"
+msgstr "查看个人资料"
+
+#: src/templates/base.html:149
+msgid "Edit profile"
+msgstr "编辑个人资料"
+
+#: src/templates/base.html:150
+msgid "Settings"
+msgstr "设置"
+
+#: src/templates/base.html:151
+msgid "Notifications"
+msgstr "通知"
+
+#: src/templates/base.html:152
+#: src/templates/registration/password_reset_confirm.html:7
+msgid "Change Password"
+msgstr "修改密码"
+
+#: src/templates/base.html:153
+msgid "Logout"
+msgstr "退出登录"
+
+#: src/templates/base.html:156
+msgid "Organizations"
+msgstr "组织"
+
+#: src/templates/base.html:167
+msgid "Create Organization"
+msgstr "创建组织"
+
+#: src/templates/base.html:172 src/templates/registration/login.html:8
+msgid "Login"
+msgstr "登录"
+
+#: src/templates/base.html:174
+msgid "Sign-up"
+msgstr "注册"
+
+#: src/templates/base.html:201
+msgid "Chasuite"
+msgstr "Chasuite"
+
+#: src/templates/base.html:203
+msgid "Competitions v1.6"
+msgstr "竞赛 v1.6"
+
+#: src/templates/base.html:209 src/templates/base.html:211
+msgid "About"
+msgstr "关于"
+
+#: src/templates/base.html:212
+msgid "Github"
+msgstr "Github"
+
+#: src/templates/base.html:213
+msgid "Privacy and Terms"
+msgstr "隐私与条款"
+
+#: src/templates/base.html:214
+msgid "API Docs"
+msgstr "API 文档"
+
+#: src/templates/base.html:221
+msgid "CodaBench"
+msgstr "CodaBench"
+
+#: src/templates/base.html:223
+msgid ""
+"Join us on <a href=\"%(github_url)s\" target=\"_blank\">Github</a> for "
+"contact &amp; bug reports"
+msgstr "欢迎前往 <a href=\"%(github_url)s\" target=\"_blank\">Github</a> 与我们联系并反馈问题"
+
+#: src/templates/base.html:228
+#, python-format
+msgid ""
+"Questions about the platform? See our <a href=\"%(wiki_url)s\" "
+"target=\"_blank\">Wiki</a> for more information."
+msgstr "对平台有疑问？请访问我们的 <a href=\"%(wiki_url)s\" target=\"_blank\">Wiki</a> 获取更多信息。"
+
+#: src/templates/base_simple.html:13
+msgid "Codalab Competitions"
+msgstr "Codalab 竞赛"
+
+#: src/templates/emails/participation/participant/participation_accepted.html:6
+#: src/templates/emails/participation/participant/participation_accepted.txt:6
+#, python-format
+msgid ""
+"Your application for the <a "
+"href=\"http://%(site_domain)s%(competition_url)s\">%(competition_title)s</a>"
+" competition has been <b>accepted</b>. Get ready to showcase your skills and"
+" compete with other talented individuals."
+msgstr ""
+"你在 <a "
+"href=\"http://%(site_domain)s%(competition_url)s\">%(competition_title)s</a>"
+" 竞赛中的申请已<b>通过</b>。准备好展示你的实力，与其他优秀的参赛者一较高下吧！"
+
+#: src/templates/pages/home.html:41
+msgid "Announcement"
+msgstr "公告"
+
+#: src/templates/pages/home.html:57
+msgid "Get Started"
+msgstr "立即开始"
+
+#: src/templates/pages/home.html:63
+msgid "Participate"
+msgstr "参与"
+
+#: src/templates/pages/home.html:67
+msgid ""
+"Find benchmarks that pique your interest! A benchmark allows you to test new"
+" algorithms against reference datasets OR (inverted benchmark) submit "
+"challenging data to reference algorithms."
+msgstr "寻找令你感兴趣的基准！基准能够让你在参考数据集上测试新算法，或在反向基准中向参考算法提交具有挑战性的数据。"
+
+#: src/templates/pages/home.html:76
+msgid "Organize"
+msgstr "组织"
+
+#: src/templates/pages/home.html:80
+msgid ""
+"Organize a benchmark on Codabench. Start with our <a "
+"href=\"%(tutorial_url)s\">tutorial</a>."
+msgstr "在 Codabench 上组织一个基准。从我们的 <a href=\"%(tutorial_url)s\">教程</a> 开始吧。"
+
+#: src/templates/pages/home.html:89
+msgid "Contribute"
+msgstr "贡献"
+
+#: src/templates/pages/home.html:93
+msgid ""
+"Interested in joining the development team? Join us on <a "
+"href=\"%(github_url)s\">Github</a> or <a "
+"href=\"mailto:%(contact_email)s\">contact us</a> directly."
+msgstr ""
+"想加入开发团队吗？欢迎访问 <a href=\"%(github_url)s\">Github</a> 或直接 <a "
+"href=\"mailto:%(contact_email)s\">联系我们</a>。"
+
+#: src/templates/pages/home.html:108
+msgid "Public Competitions"
+msgstr "公开竞赛"
+
+#: src/templates/pages/home.html:115
+#: src/templates/profiles/organization_detail.html:80
+msgid "Users"
+msgstr "用户"
+
+#: src/templates/pages/home.html:122
+msgid "Submissions"
+msgstr "提交"
+
+#: src/templates/pages/home.html:130
+msgid "About Codabench"
+msgstr "关于 Codabench"
+
+#: src/templates/pages/home.html:136
+msgid "What is Codabench?"
+msgstr "Codabench 是什么？"
+
+#: src/templates/pages/home.html:139
+#, python-format
+msgid ""
+"Codabench is an <a href=\"%(codabench_repo)s\">open source</a> platform "
+"allowing you to organize AI benchmarks. It is flexible and powerful, yet "
+"easy to use. You define tasks (e.g. datasets and metrics of success), then "
+"interface for submissions of code (algorithms), add some documentation "
+"pages, make an upload and that's it! Your benchmark is created, ready to "
+"accept submissions of new algorithms. Everything can be fully customized, "
+"including the code of the scoring program. Organizers can even hook up their"
+" own compute workers to their benchmarks, enabling unlimited computing "
+"power. Participants can try out their methods, get real-time feedback and "
+"results on a competitive leaderboard, detailed plots and more."
+msgstr ""
+"Codabench 是一个 <a href=\"%(codabench_repo)s\">开源</a> 平台，帮助你组织 AI "
+"基准。它灵活、强大且易于使用。你可以定义任务（例如数据集和评估指标）、配置提交算法的接口、添加文档页面，只需上传即可完成！你的基准会立即生成，准备好接收新的算法提交。所有内容都可以完全自定义，包括评分程序的代码。组织者甚至可以为基准接入自有计算节点，获得无限算力。参赛者可以尝试他们的方法，实时获取反馈和排行榜结果，并查看详细图表等信息。"
+
+#: src/templates/pages/home.html:144
+msgid ""
+"In a unique twist, Codabench also allows you to create inverted benchmarks. "
+"Here, the roles of datasets and algorithms are interchanged. In this "
+"scenario, you set the reference algorithms and the participants contribute "
+"datasets."
+msgstr "更与众不同的是，Codabench 还支持创建反向基准。在这种模式下，数据集和算法的角色互换，你提供参考算法，参赛者提交数据集。"
+
+#: src/templates/pages/home.html:151
+msgid "What is CodaLab?"
+msgstr "CodaLab 是什么？"
+
+#: src/templates/pages/home.html:154
+#, python-format
+msgid ""
+"CodaLab Competitions is a powerful <a href=\"%(codalab_repo)s\">open "
+"source</a> framework for running competitions using result or code "
+"submissions. You can participate in an existing competition or host your own"
+" competition for free."
+msgstr ""
+"CodaLab Competitions 是一个功能强大的 <a href=\"%(codalab_repo)s\">开源</a> "
+"框架，支持以结果或代码方式提交的竞赛。你可以参加现有竞赛，或免费举办自己的竞赛。"
+
+#: src/templates/pages/home.html:159
+msgid ""
+"Most competitions hosted on CodaLab are machine learning (data science) "
+"competitions, but it is NOT limited to this application domain. It can "
+"accommodate any problem for which a solution can be provided in the form of "
+"a zip archive containing a number of files to be evaluated quantitatively by"
+" a scoring program (provided by the organizers). The scoring program must "
+"return a numeric score, which is displayed on a leaderboard where the "
+"performances of participants are compared."
+msgstr ""
+"大多数在 CodaLab 上举办的都是机器学习（数据科学）竞赛，但应用领域并不限于此。只要问题的解可以以包含若干文件的 zip "
+"压缩包形式提交，并由主办方提供的评分程序进行量化评估，就能使用 CodaLab。评分程序会返回一个数值分数，显示在排行榜上，以便比较参赛者的表现。"
+
+#: src/templates/pages/home.html:166
+msgid "History of CodaLab"
+msgstr "CodaLab 的发展历程"
+
+#: src/templates/pages/home.html:169
+msgid ""
+"CodaLab was created in 2013 as a joint venture between Microsoft and "
+"Stanford University. Originally the vision was to create an ecosystem for "
+"conducting computational research in a more efficient, reproducible, and "
+"collaborative manner, combining worksheets and competitions. Worksheets "
+"capture complex research pipelines in a reproducible way and create "
+"\"executable papers\". Codabench is the continuity of CodaLab, a version 2 "
+"in which users can organize benchmarks."
+msgstr ""
+"CodaLab 于 2013 "
+"年由微软和斯坦福大学联合创建。其愿景是构建一个更高效、可复现、可协作的计算研究生态，将工作表与竞赛结合使用。工作表能够以可复现的方式记录复杂的研究流程，创建“可执行论文”。Codabench"
+" 延续了 CodaLab，是让用户组织基准测试的 2.0 版本。"
+
+#: src/templates/pages/home.html:174
+#, python-format
+#| msgid ""
+#| "Some competitions have been organized using worksheets, but the competition "
+#| "platform and the worksheet platform have both a large user base and can be "
+#| "used independently. In 2014, <a class=\"large_links\" href=\"{{ chalearn_url"
+#| " }}\">ChaLearn</a> joined to co-develop CodaLab competitions. Since 2015, "
+#| "University Paris-Saclay is community lead of CodaLab competitions, under the"
+#| " direction of Isabelle Guyon, professor of big data. CodaLab and Codabench "
+#| "are administered by the <a class=\"large_links\" href=\"{{ lisn_url "
+#| "}}\">LISN staff.</a>"
+msgid ""
+"Some competitions have been organized using worksheets, but the competition "
+"platform and the worksheet platform have both a large user base and can be "
+"used independently. In 2014, <a class=\"large_links\" "
+"href=\"%(chalearn_url)s\">ChaLearn</a> joined to co-develop CodaLab "
+"competitions. Since 2015, University Paris-Saclay is community lead of "
+"CodaLab competitions, under the direction of Isabelle Guyon, professor of "
+"big data. CodaLab and Codabench are administered by the <a "
+"class=\"large_links\" href=\"%(lisn_url)s\">LISN staff.</a>"
+msgstr ""
+"部分竞赛通过工作表开展，但竞赛平台和工作表平台各自拥有庞大的用户群，并可独立使用。2014 年，<a class=\"large_links\" "
+"href=\"%(chalearn_url)s\">ChaLearn</a> 加入共同开发 CodaLab 竞赛。自 2015 "
+"年起，巴黎萨克雷大学在大数据专家 Isabelle Guyon 教授的带领下担任 CodaLab 竞赛的社区负责人。CodaLab 和 "
+"Codabench 由 <a class=\"large_links\" href=\"%(lisn_url)s\">LISN 团队</a> 负责运维。"
+
+#: src/templates/pages/home.html:181
+msgid "CodaLab in Research"
+msgstr "CodaLab 在科研中的应用"
+
+#: src/templates/pages/home.html:184
+#, python-format
+#| msgid ""
+#| "CodaLab is used actively in research. In 2019/2020, 400 new challenges were "
+#| "launched. Recent popular challenges organized with CodaLab include the <a "
+#| "href=\"{{ covid_url }}\">COVID-19 retweet prediction challenge</a>, the <a "
+#| "href=\"{{ eccv_url }}\">ECCV 2020 ChaLearn LAP Fair face recognition "
+#| "challenge</a>, the 2020 <a href=\"{{ driveml_url }}\">DriveML Huawei "
+#| "Autonomous Vehicle Challenge</a>, and high profile challenges include the <a"
+#| " class=\"large_links\" href=\"{{ see4c_url }}\">2 million Euro prize of the "
+#| "EU, organized by the See.4C consortium</a>, the <a class=\"large_links\" "
+#| "href=\"{{ cikm_url }}\">CIKM AnalytiCup 2017</a>, which attracted 493 "
+#| "participants, <a class=\"large_links\" href=\"{{ mscoco_url }}\">MSCOCO</a> "
+#| "(633 participants) and the <a class=\"large_links\" href=\"{{ automl_url "
+#| "}}\">ChaLearn AutoML challenge 2017</a> (687 participants)."
+msgid ""
+"CodaLab is used actively in research. In 2019/2020, 400 new challenges were "
+"launched. Recent popular challenges organized with CodaLab include the <a "
+"href=\"%(covid_url)s\">COVID-19 retweet prediction challenge</a>, the <a "
+"href=\"%(eccv_url)s\">ECCV 2020 ChaLearn LAP Fair face recognition "
+"challenge</a>, the 2020 <a href=\"%(driveml_url)s\">DriveML Huawei "
+"Autonomous Vehicle Challenge</a>, and high profile challenges include the <a"
+" class=\"large_links\" href=\"%(see4c_url)s\">2 million Euro prize of the "
+"EU, organized by the See.4C consortium</a>, the <a class=\"large_links\" "
+"href=\"%(cikm_url)s\">CIKM AnalytiCup 2017</a>, which attracted 493 "
+"participants, <a class=\"large_links\" href=\"%(mscoco_url)s\">MSCOCO</a> "
+"(633 participants) and the <a class=\"large_links\" "
+"href=\"%(automl_url)s\">ChaLearn AutoML challenge 2017</a> (687 "
+"participants)."
+msgstr ""
+"CodaLab 在科研中被广泛使用。2019/2020 年间，共有 400 个新挑战上线。近期在 CodaLab 上举办的热门挑战包括 <a "
+"href=\"%(covid_url)s\">COVID-19 转发预测挑战</a>、<a href=\"%(eccv_url)s\">ECCV "
+"2020 ChaLearn LAP 公平人脸识别挑战</a>、2020 年的 <a href=\"%(driveml_url)s\">DriveML "
+"华为自动驾驶挑战</a> 等。高影响力的赛事还包括 <a class=\"large_links\" href=\"%(see4c_url)s\">欧盟"
+" See.4C 联盟 200 万欧元大奖</a>、吸引 493 名参赛者的 <a class=\"large_links\" "
+"href=\"%(cikm_url)s\">CIKM AnalytiCup 2017</a>、拥有 633 名参赛者的 <a "
+"class=\"large_links\" href=\"%(mscoco_url)s\">MSCOCO</a>，以及 687 名参赛者参加的 <a "
+"class=\"large_links\" href=\"%(automl_url)s\">ChaLearn AutoML 2017 挑战</a>。"
+
+#: src/templates/pages/home.html:189
+msgid ""
+"Since 2016, CodaLab offers the possibility of organizing machine learning "
+"challenges with code submission. The simplest machine learning challenges "
+"require only the submission of results, which are compared to a solution (or"
+" key) by a scoring program. Result submission challenges are less "
+"computationally expensive than code submission challenges. However, they "
+"offer less possibilities. In particular, code submission allows conducting "
+"fair benchmarks by executing submitted code in the same condition for all "
+"participants."
+msgstr ""
+"自 2016 年起，CodaLab "
+"支持举办需要提交代码的机器学习挑战。最简单的挑战只需提交结果，评分程序将其与标准答案（或金钥匙）比较。结果提交挑战计算成本较低，但灵活性有限。相比之下，代码提交能够在同等条件下运行参赛者代码，确保基准公平性。"
+
+#: src/templates/pages/home.html:204
+msgid "News"
+msgstr "新闻"
+
+#: src/templates/pages/home.html:229
+msgid "Cite Codabench in your research"
+msgstr "在研究中引用 Codabench"
+
+#: src/templates/pages/monitor_queues.html:12
+msgid "Monitor queues"
+msgstr "队列监控"
+
+#: src/templates/pages/monitor_queues.html:20
+msgid "RabbitMQ"
+msgstr "RabbitMQ"
+
+#: src/templates/pages/monitor_queues.html:22
+msgid ""
+"This page allows admins to view connections, queued messages, message rates,"
+" channels, exchanges, and other administrative features relating to RabbitMQ"
+" e.g. Creating users, adding v-hosts, and creating policies."
+msgstr "此页面允许管理员查看 RabbitMQ 的连接、排队消息、消息速率、通道、交换机等管理功能，例如创建用户、添加虚拟主机和配置策略。"
+
+#: src/templates/pages/monitor_queues.html:37
+msgid "Flower"
+msgstr "Flower"
+
+#: src/templates/pages/monitor_queues.html:39
+msgid ""
+"Flower is a powerful web-based Celery monitoring tool designed to keep track"
+" of our tasks. Admins may view the state of which tasks were run, with what "
+"arguments, and many more features. Here you may also view which queues your "
+"celery workers are consuming, and the state of any tasks in them. At last, "
+"there is also a great monitoring page for viewing the systemic impact of "
+"your workers."
+msgstr ""
+"Flower 是功能强大的 Web 版 Celery 监控工具，可用于跟踪任务执行情况。管理员可以查看已运行任务及其参数等信息，还能看到 Celery "
+"worker 正在消费的队列以及其中任务的状态，并通过监控页面了解 worker 对系统的整体影响。"
+
+#: src/templates/pages/monitor_queues.html:55
+msgid "You do not have access to this page!"
+msgstr "你没有访问此页面的权限！"
+
+#: src/templates/pages/monitor_queues.html:64
+#: src/templates/pages/server_status.html:90
+#, python-format
+msgid ""
+"<a href=\"%(login_url)s\">Log In</a> or <a href=\"%(signup_url)s\">Sign "
+"Up</a> to view this page"
+msgstr "请 <a href=\"%(login_url)s\">登录</a> 或 <a href=\"%(signup_url)s\">注册</a> 后查看此页面"
+
+#: src/templates/pages/organize.html:8
+msgid "Reasons to organize a competition...!"
+msgstr "组织竞赛的理由...！"
+
+#: src/templates/pages/server_status.html:11
+msgid "Recent Submissions"
+msgstr "最新提交"
+
+#: src/templates/pages/server_status.html:13
+msgid "Show child submissions"
+msgstr "显示子提交"
+
+#: src/templates/pages/server_status.html:16
+msgid ""
+"Child submissions are created when a competition has multiple tasks (one "
+"child for each task)."
+msgstr "当竞赛包含多个任务时会生成子提交（每个任务一个子提交）。"
+
+#: src/templates/pages/server_status.html:22
+msgid "Competition"
+msgstr "竞赛"
+
+#: src/templates/pages/server_status.html:23
+msgid "Submission PK"
+msgstr "提交 PK"
+
+#: src/templates/pages/server_status.html:25
+msgid "Parent PK"
+msgstr "父级 PK"
+
+#: src/templates/pages/server_status.html:27
+msgid "Size"
+msgstr "大小"
+
+#: src/templates/pages/server_status.html:28
+msgid "Submitter"
+msgstr "提交者"
+
+#: src/templates/pages/server_status.html:29
+msgid "Queue"
+msgstr "队列"
+
+#: src/templates/pages/server_status.html:30
+msgid "Ingestion Hostname"
+msgstr "导入主机名"
+
+#: src/templates/pages/server_status.html:31
+msgid "Scoring Hostname"
+msgstr "评分主机名"
+
+#: src/templates/pages/server_status.html:32
+msgid "Submitted at"
+msgstr "提交时间"
+
+#: src/templates/pages/server_status.html:33
+msgid "Status"
+msgstr "状态"
+
+#: src/templates/pages/server_status.html:38
+msgid "No submissions, yet!"
+msgstr "暂无提交！"
+
+#: src/templates/pages/server_status.html:53
+#, python-format
+msgid "%(time_ago)s ago"
+msgstr "%(time_ago)s 前"
+
+#: src/templates/pages/server_status.html:65
+msgid "First"
+msgstr "首页"
+
+#: src/templates/pages/server_status.html:66
+msgid "Previous"
+msgstr "上一页"
+
+#: src/templates/pages/server_status.html:71
+#, python-format
+msgid "Page %(current_page)s of %(total_pages)s"
+msgstr "第 %(current_page)s / 共 %(total_pages)s 页"
+
+#: src/templates/pages/server_status.html:77
+msgid "Next"
+msgstr "下一页"
+
+#: src/templates/pages/server_status.html:78
+msgid "Last"
+msgstr "尾页"
+
+#: src/templates/profiles/organization_detail.html:9
+msgid "Edit Organization"
+msgstr "编辑组织"
+
+#: src/templates/profiles/organization_detail.html:12
+msgid "Delete Organization"
+msgstr "删除组织"
+
+#: src/templates/profiles/organization_detail.html:25
+msgid "Organization Photo"
+msgstr "组织照片"
+
+#: src/templates/profiles/organization_detail.html:40
+#, python-format
+msgid "Participating in Codabench since %(created_when)s"
+msgstr "自 %(created_when)s 起参与 Codabench"
+
+#: src/templates/profiles/organization_detail.html:47
+msgid "Socials"
+msgstr "社交媒体"
+
+#: src/templates/profiles/organization_detail.html:50
+msgid "Email:"
+msgstr "邮箱："
+
+#: src/templates/profiles/organization_detail.html:56
+msgid "Website:"
+msgstr "网站："
+
+#: src/templates/profiles/organization_detail.html:62
+msgid "LinkedIn:"
+msgstr "LinkedIn："
+
+#: src/templates/profiles/organization_detail.html:68
+msgid "Twitter:"
+msgstr "Twitter："
+
+#: src/templates/profiles/organization_detail.html:74
+msgid "GitHub:"
+msgstr "GitHub："
+
+#: src/templates/profiles/organization_detail.html:84
+msgid "Name"
+msgstr "姓名"
+
+#: src/templates/profiles/organization_detail.html:86
+msgid "E-mail"
+msgstr "邮箱"
+
+#: src/templates/profiles/user_notifications.html:8
+msgid "Notifications:"
+msgstr "通知："
+
+#: src/templates/profiles/user_notifications.html:13
+msgid "Allow Emails from Competition Organizers"
+msgstr "允许接收竞赛组织者的邮件"
+
+#: src/templates/profiles/user_notifications.html:19
+msgid "Allow Emails for Forum Notifications"
+msgstr "允许接收论坛通知邮件"
+
+#: src/templates/profiles/user_notifications.html:25
+msgid "Allow Invite Emails for Organizations"
+msgstr "允许接收组织邀请邮件"
+
+#: src/templates/profiles/user_notifications.html:28
+msgid "Submit"
+msgstr "提交"
+
+#: src/templates/registration/login.html:13
+#, python-format
+msgid ""
+"%(activation_error)s or click <a href=\"%(resend_url)s\">here</a> to send "
+"the activation email again"
+msgstr "%(activation_error)s，或点击 <a href=\"%(resend_url)s\">这里</a> 重新发送激活邮件"
+
+#: src/templates/registration/login.html:36
+msgid "username or email"
+msgstr "用户名或邮箱"
+
+#: src/templates/registration/login.html:55
+msgid "password"
+msgstr "密码"
+
+#: src/templates/registration/login.html:62
+msgid "Log In"
+msgstr "登录"
+
+#: src/templates/registration/login.html:67
+#, python-format
+msgid "Don't have an account? <a href=\"%(signup_url)s\">Sign Up</a>"
+msgstr "还没有账号？<a href=\"%(signup_url)s\">立即注册</a>"
+
+#: src/templates/registration/login.html:74
+#, python-format
+msgid "<a href=\"%(password_reset_url)s\">Forgot your password?</a>"
+msgstr "<a href=\"%(password_reset_url)s\">忘记密码？</a>"
+
+#: src/templates/registration/login.html:87
+msgid "Organization Login"
+msgstr "组织登录"
+
+#: src/templates/registration/login.html:93
+msgid ""
+"I accept the <a href=\"https://github.com/codalab/codalab-"
+"competitions/wiki/Privacy\" target=\"_blank\">terms and conditions</a>."
+msgstr ""
+"我接受 <a href=\"https://github.com/codalab/codalab-competitions/wiki/Privacy\""
+" target=\"_blank\">条款与条件</a>。"
+
+#: src/templates/registration/login.html:106
+#, python-format
+msgid "Login with %(organization_name)s"
+msgstr "使用 %(organization_name)s 登录"
+
+#: src/templates/registration/password_reset_confirm.html:10
+msgid "Reset your password by entering a new one."
+msgstr "输入新密码以完成重置。"
+
+#: src/templates/registration/password_reset_confirm.html:19
+msgid "new password"
+msgstr "新密码"
+
+#: src/templates/registration/password_reset_confirm.html:31
+msgid "repeat new password"
+msgstr "再次输入新密码"
+
+#: src/templates/registration/password_reset_confirm.html:39
+#: src/templates/registration/password_reset_form.html:5
+#: src/templates/registration/password_reset_form.html:10
+#: src/templates/registration/password_reset_form.html:35
+msgid "Reset password"
+msgstr "重置密码"
+
+#: src/templates/registration/password_reset_form.html:15
+#, python-format
+msgid "<strong>Note:</strong> you are already logged in as %(username)s."
+msgstr "<strong>提示：</strong>你已以 %(username)s 身份登录。"
+
+#: src/templates/registration/password_reset_form.html:18
+msgid "Forgot your password?"
+msgstr "忘记密码了吗？"
+
+#: src/templates/registration/password_reset_form.html:19
+msgid ""
+"Enter your email in the form below and we'll send you instructions for "
+"creating a new one."
+msgstr "在下方输入你的邮箱，我们会向你发送创建新密码的说明。"
+
+#: src/templates/registration/password_reset_form.html:28
+msgid "email"
+msgstr "邮箱"
