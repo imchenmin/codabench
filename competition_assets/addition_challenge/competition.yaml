@@ -1,0 +1,41 @@
+version: 2
+title: 简单加法挑战
+image: logo.png
+terms: pages/terms.md
+description: 计算数据集中每行加法结果，提交预测的总和。
+pages:
+  - title: 概览
+    file: pages/overview.md
+  - title: 评分说明
+    file: pages/evaluation.md
+  - title: 条款
+    file: pages/terms.md
+phases:
+  - index: 0
+    name: 开发阶段
+    description: 下载输入数据，在本地生成预测并提交结果。
+    start: 2024-01-01 00:00:00
+    end: 2030-01-01 00:00:00
+    execution_time_limit: 120
+    max_submissions_per_day: 5
+    max_submissions_per_person: 100
+    auto_migrate_to_this_phase: false
+    public_data: public_data.zip
+    starting_kit: starting_kit/java_solution.zip
+    tasks:
+      - 0
+tasks:
+  - index: 0
+    name: Addition Task
+    description: 计算提供数据中 `a + b` 的结果。
+    input_data: public_data.zip
+    reference_data: reference_data.zip
+    scoring_program: scoring_program.zip
+leaderboard:
+  - title: Results
+    key: main
+    columns:
+      - title: Accuracy
+        key: accuracy
+        index: 0
+        sorting: desc
