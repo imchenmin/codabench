@@ -31,4 +31,4 @@
 
 ## 5. 本地测试评分程序（可选）
 
-如需在本地验证评分脚本，可在 Docker 环境中模拟 Codabench 评分容器，将预测结果放入 `/app/input/res/predictions.csv`，参考脚本运行 `python3 scoring_program/scoring.py` 校验。
+如需在本地验证评分脚本，可在 Docker 环境中模拟 Codabench 评分容器，将预测结果放入 `/app/output/res/predictions.csv`（平台会在评分阶段自动镜像至 `/app/input/res/`），参考脚本运行 `python3 scoring_program/scoring.py` 校验。

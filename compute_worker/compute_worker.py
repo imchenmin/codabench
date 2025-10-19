@@ -358,7 +358,17 @@ class Run:
         self._update_submission(data)
 
     def _get_container_image(self, image_name):
-        logger.info("Running pull for image: {}".format(image_name))
+        logger.info("Ensuring image is available: %s", image_name)
+
+        # First check if the image already exists locally to avoid unnecessary pulls
+        try:
+            cmd = [CONTAINER_ENGINE_EXECUTABLE, 'image', 'inspect', image_name]
+            check_output(cmd)
+            logger.info("Image %s already present locally, skipping pull.", image_name)
+            return
+        except CalledProcessError:
+            logger.info("Image %s not found locally, attempting to pull.", image_name)
+
         retries, max_retries = (0, 3)
         while retries < max_retries:
             try:

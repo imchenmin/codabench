@@ -1,7 +1,9 @@
 import logging
 import os
+import posixpath
 import uuid
 from datetime import timedelta
+from urllib.parse import urlparse, urlunparse
 
 import requests
 from azure.storage.blob import BlobPermissions
@@ -13,6 +15,33 @@ from utils.storage import BundleStorage
 
 
 logger = logging.getLogger(__name__)
+
+
+def _swap_s3_endpoint_for_public_access(url):
+    """Replace the internal S3 endpoint with the external one if needed."""
+    internal_endpoint = getattr(settings, 'AWS_S3_ENDPOINT_URL', '')
+    external_endpoint = getattr(settings, 'AWS_S3_ENDPOINT_EXTERNAL_URL', '')
+
+    if not internal_endpoint or not external_endpoint:
+        return url
+
+    parsed_url = urlparse(url)
+    parsed_internal = urlparse(internal_endpoint)
+    parsed_external = urlparse(external_endpoint)
+
+    if not parsed_internal.netloc or parsed_url.netloc != parsed_internal.netloc or not parsed_external.netloc:
+        return url
+
+    path = parsed_url.path
+    if parsed_external.path and parsed_external.path != '/':
+        path = '/' + posixpath.join(parsed_external.path.lstrip('/'), parsed_url.path.lstrip('/'))
+
+    patched_url = parsed_url._replace(
+        scheme=parsed_external.scheme or parsed_url.scheme,
+        netloc=parsed_external.netloc,
+        path=path,
+    )
+    return urlunparse(patched_url)
 
 
 @deconstructible
@@ -73,11 +102,12 @@ def make_url_sassy(path, permission='r', duration=60 * 60 * 24 * 5, content_type
             if content_type:
                 params["ContentType"] = content_type
 
-        return BundleStorage.bucket.meta.client.generate_presigned_url(
+        url = BundleStorage.bucket.meta.client.generate_presigned_url(
             client_method,
             Params=params,
             ExpiresIn=duration,
         )
+        return _swap_s3_endpoint_for_public_access(url)
     elif settings.STORAGE_IS_GCS:
         if permission == 'r':
             client_method = 'GET'

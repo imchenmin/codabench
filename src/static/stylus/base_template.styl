@@ -157,6 +157,41 @@ html
     .icon.user.outline
         margin-right 0
 
+    .right.menu.item
+        display flex
+        align-items center
+        gap 0.5em
+        flex-wrap nowrap
+
+        > .item,
+        > .ui.button
+            display inline-flex
+            align-items center
+            white-space nowrap
+
+    .language-dropdown
+        display inline-flex
+        align-items center
+        padding .92857143em 0.85714286em
+        color rgba(255,255,255,.7) !important
+        white-space nowrap
+
+        .language-label
+            margin-left .5em
+            white-space nowrap
+            max-width 8rem
+            overflow hidden
+            text-overflow ellipsis
+
+        .dropdown.icon
+            margin-left .35em
+
+        .menu
+            min-width 8rem
+
+        .item
+            white-space normal
+
 #toast-container
     opacity 0.8
     margin-top 3em
@@ -183,6 +218,17 @@ html
 /* --------------------------------------------------------------------------------------
  mobile
  */
+@media only screen and (max-width 900px)
+    #header
+        .language-dropdown
+            padding .78571429em .57142857em
+
+            .language-label
+                display none
+
+            .dropdown.icon
+                margin-left 0
+
 @media only screen and (max-width 625px)
     .tl.item
         display none!important

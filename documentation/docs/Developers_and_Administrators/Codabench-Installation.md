@@ -27,20 +27,20 @@ Then edit the necessary settings inside. The most important are the database, st
 
 !!! warning "It is important to change the default passwords if you intend for the instance to be public"
 
-If you are using `AWS_S3_ENDPOINT_URL=http://minio:9000/` in your `.env`, edit your `/etc/hosts` file by adding this line `127.0.0.1 minio`
+如果在 `.env` 中使用 `AWS_S3_ENDPOINT_URL=http://minio:9000/`（或 `AWS_S3_ENDPOINT_INTERNAL_URL=http://minio:9000/`）供容器访问 MinIO，建议在本机的 `/etc/hosts` 文件中追加 `127.0.0.1 minio`，或另外设置 `AWS_S3_ENDPOINT_EXTERNAL_URL` 让浏览器通过其它域名访问。
 
 
 #### For MacOS
 
-In `.env`, replace:
+在 `.env` 中保留容器使用的默认内部端点：
 ```ini
 AWS_S3_ENDPOINT_URL=http://minio:9000/
 ```
 
-by
+并新增外部端点供宿主机访问：
 
 ```ini
-AWS_S3_ENDPOINT_URL=http://docker.for.mac.localhost:9000/
+AWS_S3_ENDPOINT_EXTERNAL_URL=http://docker.for.mac.localhost:9000/
 ```
 !!! note "If needed, some troubleshooting of this step is provided at [the end of this page](#troubleshooting-storage-endpoint-url) or [in this page](How-to-deploy-Codabench-on-your-server.md#frequently-asked-questions-faqs)"
 
@@ -105,7 +105,7 @@ Here is a possible fix:
 minio_1           | Browser Access:
 minio_1           |    http://172.27.0.5:9000  http://127.0.0.1:9000
 ```
-3. Set `AWS_S3_ENDPOINT_URL=http://172.27.0.5:9000`in your `.env` file.
+3. Set `AWS_S3_ENDPOINT_INTERNAL_URL=http://172.27.0.5:9000` in your `.env` file（如需保留原来的公共地址，可同时设置 `AWS_S3_ENDPOINT_EXTERNAL_URL`）。
 
 ---
 
