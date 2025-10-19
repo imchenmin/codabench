@@ -264,7 +264,13 @@ class Run:
     async def watch_detailed_results(self):
         """Watches files alongside scoring + program containers, currently only used
         for detailed_results.html"""
+        logger.info(
+            "watch_detailed_results start: detailed_results_url=%s submission=%s",
+            self.detailed_results_url,
+            getattr(self, "submission_id", "unknown"),
+        )
         if not self.detailed_results_url:
+            logger.info("watch_detailed_results skipped (no detailed_results_url)")
             return
         file_path = self.get_detailed_results_file_path()
         last_modified_time = None
@@ -272,6 +278,12 @@ class Run:
         expiration_seconds = 60
 
         while self.watch and self.completed_program_counter < 2:
+            logger.info(
+                "watch_detailed_results pending: counter=%s watch=%s submission=%s",
+                self.completed_program_counter,
+                self.watch,
+                getattr(self, "submission_id", "unknown"),
+            )
             if file_path:
                 new_time = os.path.getmtime(file_path)
                 if new_time != last_modified_time:
@@ -288,6 +300,12 @@ class Run:
             # make sure we always send the final version of the file
             if file_path:
                 await self.send_detailed_results(file_path)
+        logger.info(
+            "watch_detailed_results exit: counter=%s watch=%s submission=%s",
+            self.completed_program_counter,
+            self.watch,
+            getattr(self, "submission_id", "unknown"),
+        )
 
     def get_detailed_results_file_path(self):
         default_detailed_results_path = os.path.join(self.output_dir, 'detailed_results.html')
@@ -491,10 +509,22 @@ class Run:
         :return:
         """
         start = time.time()
+        logger.info(
+            "Launching container: kind=%s submission=%s cmd=%s",
+            kind,
+            getattr(self, "submission_id", "unknown"),
+            ' '.join(engine_cmd),
+        )
         proc = await asyncio.create_subprocess_exec(
             *engine_cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE
+        )
+        logger.info(
+            "Container process started: kind=%s submission=%s pid=%s",
+            kind,
+            getattr(self, "submission_id", "unknown"),
+            proc.pid,
         )
 
         self.logs[kind] = {
@@ -536,6 +566,12 @@ class Run:
                 # If we get a LimitOverrunError, we will return the buffer so we can continue reading
                 return await stream.read(e.consumed)
 
+        logger.info(
+            "Container streaming start: kind=%s submission=%s pid=%s",
+            kind,
+            getattr(self, "submission_id", "unknown"),
+            proc.pid,
+        )
         while any(v["continue"] for k, v in self.logs[kind].items() if k in ['stdout', 'stderr']):
             try:
                 logs = [self.logs[kind][key] for key in ('stdout', 'stderr')]
@@ -576,12 +612,27 @@ class Run:
                         tries += 1
 
         self.logs[kind]["end"] = time.time()
+        await proc.wait()
+        elapsed = self.logs[kind]["end"] - self.logs[kind]["start"]
+        logger.info(
+            "Container finished: kind=%s submission=%s returncode=%s elapsed=%.3fs",
+            kind,
+            getattr(self, "submission_id", "unknown"),
+            proc.returncode,
+            elapsed,
+        )
 
         logger.debug(f"Process exited with {proc.returncode}")
         logger.debug(f"Disconnecting from websocket {websocket_url}")
 
         # Communicate that the program is closing
         self.completed_program_counter += 1
+        logger.info(
+            "Incremented completed_program_counter=%s (kind=%s submission=%s)",
+            self.completed_program_counter,
+            kind,
+            getattr(self, "submission_id", "unknown"),
+        )
 
         logger.debug(f"WORKER_MARKER: Disconnecting from {websocket_url}, program counter = {self.completed_program_counter}")
         await websocket.close()

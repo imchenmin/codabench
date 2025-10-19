@@ -16,7 +16,8 @@ DETAILS_FILE = OUTPUT_DIR / "detailed_results.html"
 
 
 def read_csv(path: Path) -> dict:
-    wait_until_exists(path)
+    if not path.exists():
+        raise FileNotFoundError(f"Missing file: {path}")
     records = {}
     with path.open("r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -31,15 +32,6 @@ def read_csv(path: Path) -> dict:
                 raise ValueError(f"Invalid numeric value in {path.name}: {row}") from exc
             records[idx] = value
     return records
-
-
-def wait_until_exists(path: Path, timeout: float = 10.0, poll_interval: float = 0.5) -> None:
-    """Wait for path to appear to handle ingestion-scoring race condition."""
-    deadline = time.time() + timeout
-    while not path.exists():
-        if time.time() >= deadline:
-            raise FileNotFoundError(f"Missing file: {path}")
-        time.sleep(poll_interval)
 
 
 def resolve_predictions_path(

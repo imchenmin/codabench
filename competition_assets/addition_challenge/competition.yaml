@@ -20,7 +20,7 @@ phases:
     description: 下载输入数据，在本地生成预测并提交结果。
     start: 2024-01-01 00:00:00
     end: 2030-01-01 00:00:00
-    execution_time_limit: 120
+    execution_time_limit: 300
     max_submissions_per_day: 5
     max_submissions: 100
     auto_migrate_to_this_phase: false
@@ -28,6 +28,19 @@ phases:
     starting_kit: starting_kit/java_solution.zip
     tasks:
       - 0
+  - index: 1
+    name: 私有评测阶段
+    description: 管理员使用 Alpha/Beta/Gamma 三套私有数据集离线验证模型表现，结果不会对参赛者公开。
+    start: 2030-01-02 00:00:00
+    end: 2030-04-01 00:00:00
+    execution_time_limit: 300
+    max_submissions_per_day: 0
+    max_submissions: 0
+    auto_migrate_to_this_phase: false
+    tasks:
+      - 1
+      - 2
+      - 3
 tasks:
   - index: 0
     name: Addition Task
@@ -35,6 +48,33 @@ tasks:
     is_public: false
     input_data: public_data.zip
     reference_data: reference_data.zip
+    ingestion_program: ingestion_program.zip
+    scoring_program: scoring_program.zip
+    ingestion_only_during_scoring: true
+  - index: 1
+    name: 私有基准 Alpha
+    description: 使用 Alpha 数据集进行私有离线评测，用于验证模型在扩展样本上的表现。
+    is_public: false
+    input_data: private_benchmarks/benchmark_alpha_input.zip
+    reference_data: private_benchmarks/benchmark_alpha_reference.zip
+    ingestion_program: ingestion_program.zip
+    scoring_program: scoring_program.zip
+    ingestion_only_during_scoring: true
+  - index: 2
+    name: 私有基准 Beta
+    description: 使用 Beta 数据集评测，覆盖大数值与不均衡分布场景。
+    is_public: false
+    input_data: private_benchmarks/benchmark_beta_input.zip
+    reference_data: private_benchmarks/benchmark_beta_reference.zip
+    ingestion_program: ingestion_program.zip
+    scoring_program: scoring_program.zip
+    ingestion_only_during_scoring: true
+  - index: 3
+    name: 私有基准 Gamma
+    description: 使用 Gamma 数据集评测，包含极端大数值与边界情况。
+    is_public: false
+    input_data: private_benchmarks/benchmark_gamma_input.zip
+    reference_data: private_benchmarks/benchmark_gamma_reference.zip
     ingestion_program: ingestion_program.zip
     scoring_program: scoring_program.zip
     ingestion_only_during_scoring: true
