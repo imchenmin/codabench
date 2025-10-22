@@ -5,22 +5,41 @@ FROM python:3.9
 # PYTHONDONTWRITEBYTECODE: Do not write byte files to disk, since we maintain it as readonly. (equivalent to `python -B`)
 ENV PYTHONUNBUFFERED=1 PYTHONHASHSEED=random PYTHONDONTWRITEBYTECODE=1
 
-# Get latest root certificates
-RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
+# 可选：传入内网 Debian 源与 PyPI 源
+ARG DEBIAN_MIRROR
+ARG DEBIAN_SECURITY_MIRROR
+ARG PIP_INDEX_URL=https://pypi.org/simple
+ARG PIP_TRUSTED_HOST
 
-# # Install the required packages
-RUN curl -sSL https://install.python-poetry.org | python3 - --version 1.8.3
-# Poetry location so future commands (below) work
-ENV PATH $PATH:/root/.local/bin
-# Want poetry to use system python of docker container
-RUN poetry config virtualenvs.create false
-RUN poetry config virtualenvs.in-project false
+ENV PIP_INDEX_URL=${PIP_INDEX_URL}
+ENV PIP_TRUSTED_HOST=${PIP_TRUSTED_HOST}
 
-RUN poetry init --no-interaction
+# 配置（可选）内网 Debian 源并安装证书
+RUN set -eux; \
+    if [ -n "${DEBIAN_MIRROR:-}" ]; then \
+      CODENAME=$(grep VERSION_CODENAME /etc/os-release | cut -d= -f2); \
+      printf 'deb %s %s main contrib non-free\n' "$DEBIAN_MIRROR" "$CODENAME" > /etc/apt/sources.list; \
+      printf 'deb %s %s-updates main contrib non-free\n' "$DEBIAN_MIRROR" "$CODENAME" >> /etc/apt/sources.list; \
+      if [ -n "${DEBIAN_SECURITY_MIRROR:-}" ]; then \
+        printf 'deb %s %s-security main contrib non-free\n' "$DEBIAN_SECURITY_MIRROR" "$CODENAME" >> /etc/apt/sources.list; \
+      fi; \
+    fi; \
+    apt-get update && apt-get install -y --no-install-recommends ca-certificates && update-ca-certificates && rm -rf /var/lib/apt/lists/*
 
-RUN poetry add redis=3.0.1
-RUN poetry add flower=0.9.3
-RUN poetry add celery="<5.0.0"
+# 使用 pip 安装 Poetry，避免外网安装脚本
+RUN pip install --no-cache-dir "poetry==1.8.3"
+
+# 使用容器系统 Python，不创建虚拟环境
+RUN poetry config virtualenvs.create false && \
+    poetry config virtualenvs.in-project false
+
+# 为 Poetry 设置内网源为主源（若提供）
+RUN if [ -n "${PIP_INDEX_URL:-}" ]; then poetry source add --priority primary internal "${PIP_INDEX_URL}"; fi
+
+# 固定依赖，避免在线解析
+COPY docker/flower-pyproject.toml /tmp/pyproject.toml
+WORKDIR /tmp
+RUN poetry install --no-interaction --no-ansi --no-root
 
 # Default port
 EXPOSE 5555

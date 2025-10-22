@@ -23,7 +23,13 @@ services:
       - django
 
   django:
-    build: .
+    build:
+      context: .
+      args:
+        PIP_INDEX_URL: ${PIP_INDEX_URL}
+        PIP_TRUSTED_HOST: ${PIP_TRUSTED_HOST}
+        DEBIAN_MIRROR: ${DEBIAN_MIRROR}
+        DEBIAN_SECURITY_MIRROR: ${DEBIAN_SECURITY_MIRROR}
     # NOTE: We use watchmedo to reload gunicorn nicely, Uvicorn + Gunicorn reloads don't work well
     command: bash -c "python manage.py collectstatic --noinput && cd /app/src &&  watchmedo auto-restart -p '*.py' --recursive -- gunicorn asgi:application -w 2 -k uvicorn.workers.UvicornWorker -b :8000 -b :80 --capture-output --log-level debug"
     environment:
@@ -160,6 +166,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.flower
+      args:
+        PIP_INDEX_URL: ${PIP_INDEX_URL}
+        PIP_TRUSTED_HOST: ${PIP_TRUSTED_HOST}
+        DEBIAN_MIRROR: ${DEBIAN_MIRROR}
+        DEBIAN_SECURITY_MIRROR: ${DEBIAN_SECURITY_MIRROR}
     env_file: .env
     environment:
       - CELERY_BROKER_URL=pyamqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@${RABBITMQ_HOST}:${RABBITMQ_PORT}//
@@ -195,6 +206,11 @@ services:
     working_dir: /app/src
     build:
       context: .
+      args:
+        PIP_INDEX_URL: ${PIP_INDEX_URL}
+        PIP_TRUSTED_HOST: ${PIP_TRUSTED_HOST}
+        DEBIAN_MIRROR: ${DEBIAN_MIRROR}
+        DEBIAN_SECURITY_MIRROR: ${DEBIAN_SECURITY_MIRROR}
     depends_on:
       - rabbit
       - db

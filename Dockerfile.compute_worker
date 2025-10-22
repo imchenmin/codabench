@@ -1,28 +1,44 @@
 FROM --platform=linux/amd64 fedora:42
 
+# 可选：传入内网 dnf 仓库配置与 PyPI 源
+ARG DNF_MIRROR_CONF
+ARG INSTALL_DOCKER=false
+ARG PIP_INDEX_URL=https://pypi.org/simple
+ARG PIP_TRUSTED_HOST
+
 # This makes output not buffer and return immediately, nice for seeing results in stdout
 ENV PYTHONUNBUFFERED 1
+ENV PIP_INDEX_URL=${PIP_INDEX_URL}
+ENV PIP_TRUSTED_HOST=${PIP_TRUSTED_HOST}
 
-# Install Docker
-RUN dnf -y install dnf-plugins-core && \
-    dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo && \
-    dnf -y update && \
-    dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin && \
-    dnf install -y python3.9 && \
+# 配置（可选）dnf 内网源，按需安装 docker 组件与 Python3.9
+RUN set -eux; \
+    if [ -n "${DNF_MIRROR_CONF:-}" ]; then echo "$DNF_MIRROR_CONF" > /etc/yum.repos.d/internal-mirrors.repo; fi; 
+RUN set -eux; \
+    dnf -y update; \
+    if [ "${INSTALL_DOCKER}" = "true" ]; then \
+        dnf -y install dnf-plugins-core && \
+        dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo && \
+        dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin; \
+    fi; \
+    dnf install -y python3.9 ca-certificates && \
     dnf clean all && \
     rm -rf /var/cache /var/log/dnf* /var/log/yum.*
 
+# 使用 pip 安装 Poetry，避免外网安装脚本
+RUN python3.9 -m pip install --no-cache-dir "poetry==1.8.3"
 
-RUN curl -sSL https://install.python-poetry.org | python3.9 - --version 1.8.3
-# Poetry location so future commands (below) work
-ENV PATH $PATH:/root/.local/bin
-# Want poetry to use system python of docker container
-RUN poetry config virtualenvs.create false
-RUN poetry config virtualenvs.in-project false
+# 使用容器系统 Python，不创建虚拟环境
+RUN poetry config virtualenvs.create false && \
+    poetry config virtualenvs.in-project false
+
 COPY ./compute_worker/pyproject.toml ./
 COPY ./compute_worker/poetry.lock ./
+
 # To use python3.9 instead of system python
-RUN poetry config virtualenvs.prefer-active-python true && poetry install
+RUN poetry config virtualenvs.prefer-active-python true && \
+    if [ -n "${PIP_INDEX_URL:-}" ]; then poetry source add --priority primary internal "${PIP_INDEX_URL}"; fi && \
+    poetry install --no-interaction --no-ansi
 
 ADD compute_worker .
 
