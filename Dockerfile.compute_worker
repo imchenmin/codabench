@@ -1,7 +1,41 @@
 FROM --platform=linux/amd64 fedora:42
 
+# 可选：自定义 Fedora 源镜像前缀，例如 https://mirrors.tuna.tsinghua.edu.cn/fedora
+ARG FEDORA_MIRROR_BASE
+
 # This makes output not buffer and return immediately, nice for seeing results in stdout
 ENV PYTHONUNBUFFERED 1
+
+# 若提供 FEDORA_MIRROR_BASE，则替换 fedora 与 updates 仓库为 baseurl（清华/阿里/中科大等镜像）
+RUN if [ -n "$FEDORA_MIRROR_BASE" ]; then \
+      set -eux; \
+      printf '%s\n' \
+        '[fedora]' \
+        'name=Fedora $releasever - $basearch (CN Mirror)' \
+        "baseurl=${FEDORA_MIRROR_BASE}/releases/\$releasever/Everything/\$basearch/os/" \
+        'enabled=1' \
+        'countme=1' \
+        'metadata_expire=7d' \
+        'repo_gpgcheck=0' \
+        'type=rpm' \
+        'gpgcheck=1' \
+        'gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch' \
+        'skip_if_unavailable=False' \
+      > /etc/yum.repos.d/fedora.repo; \
+      printf '%s\n' \
+        '[updates]' \
+        'name=Fedora $releasever - $basearch - Updates (CN Mirror)' \
+        "baseurl=${FEDORA_MIRROR_BASE}/updates/\$releasever/Everything/\$basearch/" \
+        'enabled=1' \
+        'countme=1' \
+        'repo_gpgcheck=0' \
+        'type=rpm' \
+        'gpgcheck=1' \
+        'metadata_expire=6h' \
+        'gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch' \
+        'skip_if_unavailable=False' \
+      > /etc/yum.repos.d/fedora-updates.repo; \
+    fi
 
 # Install Docker
 RUN dnf -y install dnf-plugins-core && \
@@ -21,6 +55,8 @@ RUN poetry config virtualenvs.create false
 RUN poetry config virtualenvs.in-project false
 COPY ./compute_worker/pyproject.toml ./
 COPY ./compute_worker/poetry.lock ./
+# 锁文件需与 pyproject 源变更保持一致
+RUN poetry lock --no-update
 # To use python3.9 instead of system python
 RUN poetry config virtualenvs.prefer-active-python true && poetry install
 

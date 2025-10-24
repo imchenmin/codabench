@@ -219,6 +219,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.compute_worker
+      args:
+        FEDORA_MIRROR_BASE: https://mirrors.tuna.tsinghua.edu.cn/fedora
     depends_on:
       - django
       - rabbit
