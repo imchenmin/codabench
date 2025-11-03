@@ -257,15 +257,41 @@ def main():
     if not cases:
         raise RuntimeError('未发现用例目录（需要包含 jobs.json）。')
 
-    # 按优先级顺序尝试加载预测文件：1. 共享目录 2. 输出目录 3. 环境变量指定目录
+    # 按优先级顺序尝试加载预测文件：1. 共享目录 2. input/res目录 3. 输出目录 4. 环境变量指定目录
     predictions = {}
     if shared_dir.exists():
         eprint('尝试从共享目录加载预测文件...')
+        eprint(f'=== 共享目录内容调试 ===')
+        eprint(f'共享目录路径: {shared_dir}')
+        if shared_dir.is_dir():
+            for item in sorted(shared_dir.rglob('*')):
+                if item.is_file():
+                    eprint(f'  文件: {item.relative_to(shared_dir)}')
+                elif item.is_dir():
+                    eprint(f'  目录: {item.relative_to(shared_dir)}/')
+        eprint(f'=== END 共享目录内容调试 ===')
         predictions = load_predictions(shared_dir)
         eprint(f'从共享目录加载了 {len(predictions)} 个预测文件')
     
     if not predictions:
-        eprint('共享目录中未找到预测文件，尝试从输出目录加载...')
+        # 尝试从 /app/input/res/ 目录加载（Codabench平台标准位置）
+        input_res_dir = input_dir / 'res'
+        if input_res_dir.exists():
+            eprint('共享目录中未找到预测文件，尝试从input/res目录加载...')
+            eprint(f'=== input/res目录内容调试 ===')
+            eprint(f'input/res目录路径: {input_res_dir}')
+            if input_res_dir.is_dir():
+                for item in sorted(input_res_dir.rglob('*')):
+                    if item.is_file():
+                        eprint(f'  文件: {item.relative_to(input_res_dir)}')
+                    elif item.is_dir():
+                        eprint(f'  目录: {item.relative_to(input_res_dir)}/')
+            eprint(f'=== END input/res目录内容调试 ===')
+            predictions = load_predictions(input_res_dir)
+            eprint(f'从input/res目录加载了 {len(predictions)} 个预测文件')
+    
+    if not predictions:
+        eprint('input/res目录中未找到预测文件，尝试从输出目录加载...')
         predictions = load_predictions(output_dir)
         eprint(f'从输出目录加载了 {len(predictions)} 个预测文件')
     
