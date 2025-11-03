@@ -1,0 +1,59 @@
+version: 2
+title: 传输调度 Benchmark
+description: |
+  针对运输调度问题，参赛者在 10 组用例（jobs/machines/constraints）上生成甘特图 JSON，由评分程序校验规范并计算主指标：平均总工期（Avg Makespan）。
+image: images/logo.png
+terms: terms.md
+docker_image: your-org/codabench-multilang:latest
+
+pages:
+  - title: 概览
+    file: overview.md
+  - title: 评测说明
+    file: evaluation.md
+  - title: 数据与IO
+    file: data.md
+
+phases:
+  - index: 0
+    name: 主赛
+    description: 单阶段比赛，代码提交，平台运行摄取与评分
+    start: 2025-01-01 00:00:00
+    end: 2025-12-31 23:59:59
+    execution_time_limit: 1800
+    starting_kit: baseline_submission.zip
+    public_data: datasets_public.zip
+    tasks:
+      - 0
+
+tasks:
+  - index: 0
+    name: 传输调度任务
+    description: 给定用例输入，生成 schedule.json；评分计算 Makespan/Utilization/OEE
+    input_data: datasets_public.zip
+    reference_data: datasets_public.zip
+    ingestion_program: ingestion_program.zip
+    scoring_program: scoring_program.zip
+
+solutions:
+  - index: 0
+    path: baseline_submission.zip
+    tasks:
+      - 0
+
+leaderboards:
+  - title: Results
+    key: main
+    columns:
+      - title: Avg Makespan
+        key: avg_makespan
+        index: 0
+        sorting: asc
+      - title: Avg Utilization
+        key: avg_utilization
+        index: 1
+        sorting: desc
+      - title: Avg OEE
+        key: avg_oee
+        index: 2
+        sorting: desc

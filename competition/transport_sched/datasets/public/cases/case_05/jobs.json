@@ -1,0 +1,9 @@
+{
+  "jobs": [
+    {"job_id": "JX", "operations": [
+      {"op_id": "O1", "processing_time": 2},
+      {"op_id": "O2", "processing_time": 2},
+      {"op_id": "O3", "processing_time": 2}
+    ]}
+  ]
+}
