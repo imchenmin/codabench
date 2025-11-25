@@ -1,4 +1,12 @@
 {% extends "base.html" %}
+{% block extra_head %}
+<style>
+#page_content.ui.container { width: 100% !important; max-width: none !important; padding-left: 0 !important; padding-right: 0 !important; }
+#page_content .row { margin-left: 0 !important; margin-right: 0 !important; }
+competition-detailed-results { display: block; width: 100%; }
+competition-detailed-results iframe { width: 100%; }
+</style>
+{% endblock %}
 {% block content %}
     <competition-detailed-results submission_id="{{ submission_id }}"></competition-detailed-results>
 {% endblock %}

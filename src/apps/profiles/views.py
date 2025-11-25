@@ -214,20 +214,21 @@ def sign_up(request):
                 messages.error(request, "This email has been previously deleted and cannot be used.")
                 context['form'] = form
             else:
-                # Update the email field to lowercase before saving
                 form.cleaned_data['email'] = email
-                user = form.save(commit=False)  # Get the user instance without saving
-                user.email = email  # Ensure email is stored in lowercase
-                user.is_active = False  # Set user as inactive
-                user.save()  # Save user instance with updated email
+                user = form.save(commit=False)
+                user.email = email
+                user.is_active = True if settings.SKIP_EMAIL_VERIFICATION else False
+                user.save()
 
-                # Authenticate and send activation email
-                username = form.cleaned_data.get('username')
-                raw_password = form.cleaned_data.get('password1')
-                user = authenticate(username=username, password=raw_password)
-                activateEmail(request, user, email)
+                if settings.SKIP_EMAIL_VERIFICATION:
+                    messages.success(request, f'Your account is fully setup! Please login.')
+                else:
+                    username = form.cleaned_data.get('username')
+                    raw_password = form.cleaned_data.get('password1')
+                    user = authenticate(username=username, password=raw_password)
+                    activateEmail(request, user, email)
 
-                return redirect('pages:home')
+                return redirect('accounts:login' if settings.SKIP_EMAIL_VERIFICATION else 'pages:home')
         else:
             context['form'] = form
 
