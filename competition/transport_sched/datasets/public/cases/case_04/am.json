@@ -1,0 +1,4 @@
+{
+  "PM1": {"NX": {"N": 5, "Duration": 300}, "Idle": {"IdleTime": 120, "Duration": 300}},
+  "PM2": {"NX": {"N": 35, "Duration": 800}}
+}

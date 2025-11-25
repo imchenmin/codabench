@@ -1,0 +1,11 @@
+{
+  "Mode": "Serial",
+  "Lot": [
+    {"FOUP": "LoadPort1", "StartTime": 700, "Id": 1, "Wafer": [1,2,3,4,5],
+      "Sequence": [[{"LoadLock1-1": 0}], [{"PM1": 180}, {"PM2": 180}, {"PM3": 180}, {"PM4": 180}], [{"LoadLock2-1": 0}]]
+    },
+    {"FOUP": "LoadPort2", "StartTime": 1500, "Id": 2, "Wafer": [1,2,3],
+      "Sequence": [[{"LoadLock1-1": 0}], [{"PM1": 180}, {"PM2": 180}, {"PM3": 180}, {"PM4": 180}], [{"LoadLock2-1": 0}]]
+    }
+  ]
+}

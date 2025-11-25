@@ -1,8 +1,0 @@
-{
-  "jobs": [
-    {"job_id": "N1", "operations": [
-      {"op_id": "O1", "processing_time": 8},
-      {"op_id": "O2", "processing_time": 7}
-    ]}
-  ]
-}

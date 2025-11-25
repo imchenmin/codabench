@@ -1,0 +1,8 @@
+{
+    "EFEM": {"AtmRobot": {"pick": 10.0, "place": 10.0}, "LoadPort": ["LoadPort1", "LoadPort2"]},
+    "LoadLock1": {"pump": 10.0, "vent": 40.0, "slot": ["Slot1"]},
+    "LoadLock2": {"pump": 10.0, "vent": 40.0, "slot": ["Slot2"]},
+    "TM1": {"VacRobot": {"pick": 10.0, "place": 10.0}, "PM": ["PM1", "PM2", "PM3", "PM4"]},
+    "PassThrough": {"PT1": ["Slot1"], "PT2": ["Slot1"]},
+    "TM2": {"VacRobot": {"pick": 10.0, "place": 10.0}, "PM": ["PM5", "PM6", "PM7", "PM8"]}
+}

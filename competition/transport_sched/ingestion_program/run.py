@@ -51,10 +51,6 @@ def detect_dirs_and_limits(argv):
 
 
 def find_cases(input_root: Path) -> list[Path]:
-    # Probe common layouts:
-    # 1) /app/input_data/cases
-    # 2) /app/input_data/public_data/cases (phase public_data)
-    # 3) /app/input/ref/cases (mounted only during scoring)
     candidates = [
         input_root / 'cases',
         input_root / 'public_data' / 'cases',
@@ -67,7 +63,11 @@ def find_cases(input_root: Path) -> list[Path]:
             break
     if root is None:
         return []
-    return [p for p in sorted(root.iterdir()) if p.is_dir() and (p / 'jobs.json').exists()]
+    out = []
+    for p in sorted(root.iterdir()):
+        if p.is_dir() and (p / 'job.json').exists() and (p / 'machine.json').exists():
+            out.append(p)
+    return out
 
 
 def ensure_dir(p: Path):
@@ -169,6 +169,8 @@ def main(argv=None):
 
     # 使用共享目录而不是输出目录来存储预测文件
     shared_dir = Path('/app/shared')
+    if not shared_dir.exists():
+        shared_dir = output_dir  # 本地运行时回退到输出目录
     eprint(f'SHARED_DIR={shared_dir}')
 
     cases = find_cases(input_dir)
@@ -206,8 +208,11 @@ def main(argv=None):
         # 复制到共享目录
         import shutil
         if out_file.exists():
-            eprint(f'复制预测文件到共享目录: {out_file} -> {shared_out_file}')
-            shutil.copy2(out_file, shared_out_file)
+            if out_file.resolve() != shared_out_file.resolve():
+                eprint(f'复制预测文件到共享目录: {out_file} -> {shared_out_file}')
+                shutil.copy2(out_file, shared_out_file)
+            else:
+                eprint('共享目录与输出目录相同，跳过复制')
         else:
             eprint(f'警告：用户程序未生成预测文件: {out_file}')
 
@@ -217,7 +222,8 @@ def main(argv=None):
                 data = json.load(f)
             except json.JSONDecodeError as ex:
                 raise RuntimeError(f'{case_id} 的 schedule.json 不是合法 JSON: {ex}')
-        if data.get('case_id') != case_id:
+        # 新协议不要求 case_id 字段，若存在则校验一致
+        if 'case_id' in data and data.get('case_id') != case_id:
             eprint(f'警告：schedule.json 的 case_id 与目录名不一致：{case_id} != {data.get("case_id")}')
 
         index['predictions'][case_id] = {'path': str(out_file.relative_to(output_dir))}
