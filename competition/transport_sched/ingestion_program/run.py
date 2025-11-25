@@ -81,8 +81,6 @@ def set_memory_limit_bytes(limit_mb: float):
 
     def _preexec():
         try:
-            # Address space (best-effort), and data segment
-            resource.setrlimit(resource.RLIMIT_AS, (limit_bytes, limit_bytes))
             resource.setrlimit(resource.RLIMIT_DATA, (limit_bytes, limit_bytes))
         except Exception:
             pass

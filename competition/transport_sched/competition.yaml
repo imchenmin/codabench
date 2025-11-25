@@ -1,7 +1,7 @@
 version: 2
 title: 传输调度 Benchmark
 description: |
-  针对运输调度问题，参赛者在 10 组用例（jobs/machines/constraints）上生成甘特图 JSON，由评分程序校验规范并计算主指标：平均总工期（Avg Makespan）。
+  针对运输调度问题，参赛者在 10 组用例（jobs/machines/am）上生成甘特图 JSON，由评分程序校验规范并计算三项指标：整体耗时（Total Flow Time）、wafer 2 wafer 的一致性（W2W Consistency），以及两者的加权平均值（Weighted Score）。
 image: images/logo.png
 terms: terms.md
 docker_image: your-org/codabench-multilang:latest
@@ -23,6 +23,7 @@ phases:
     description: 单阶段比赛，代码提交，平台运行摄取与评分
     start: 2025-01-01 00:00:00
     end: 2025-12-31 23:59:59
+    max_submissions_per_day: 30
     execution_time_limit: 1800
     starting_kit: baseline_submission.zip
     public_data: datasets_public.zip
@@ -32,7 +33,7 @@ phases:
 tasks:
   - index: 0
     name: 传输调度任务
-    description: 给定用例输入，生成 schedule.json；评分计算 Makespan/Utilization/OEE
+    description: 按 SRS（machine/job/am）生成调度（Stay/Place/Pick/Execute/Vent/Pump），评分计算整体耗时/一致性/加权分
     input_data: datasets_public.zip
     reference_data: datasets_public.zip
     ingestion_program: ingestion_program.zip
@@ -48,15 +49,15 @@ leaderboards:
   - title: Results
     key: main
     columns:
-      - title: Avg Makespan
-        key: avg_makespan
+      - title: Weighted Score
+        key: weighted_score
         index: 0
         sorting: asc
-      - title: Avg Utilization
-        key: avg_utilization
+      - title: Total Flow Time
+        key: total_flow_time
         index: 1
-        sorting: desc
-      - title: Avg OEE
-        key: avg_oee
+        sorting: asc
+      - title: W2W Consistency
+        key: w2w_consistency
         index: 2
-        sorting: desc
+        sorting: asc

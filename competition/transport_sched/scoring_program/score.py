@@ -310,10 +310,10 @@ def render_html(summary: dict) -> str:
   </style>
 </head><body>
   <h2>传输调度评测报告</h2>
-  <p>总体：Total Flow Time={summary['overall']['total_flow_time']:.3f}，W2W Consistency={summary['overall']['w2w_consistency']:.3f}，Weighted Score={summary['overall']['weighted_score']:.3f}，全部有效={summary['overall']['all_valid']}</p>
+  <p>总体：整体耗时={summary['overall']['total_flow_time']:.3f}，W2W一致性={summary['overall']['w2w_consistency']:.3f}，加权平均值={summary['overall']['weighted_score']:.3f}，全部有效={summary['overall']['all_valid']}</p>
   <table>
     <thead>
-      <tr><th>Case</th><th>Valid</th><th>Total Flow Time</th><th>W2W Consistency</th><th>Weighted Score</th><th>Messages</th></tr>
+      <tr><th>Case</th><th>Valid</th><th>整体耗时</th><th>W2W一致性</th><th>加权平均值</th><th>Messages</th></tr>
     </thead>
     <tbody>
       {''.join(rows)}
@@ -438,7 +438,11 @@ def main():
         f.write(f"all_valid: {int(summary['overall']['all_valid'])}\n")
 
     with open(output_dir / 'scores.json', 'w', encoding='utf-8') as f:
-        json.dump(summary, f, ensure_ascii=False, indent=2)
+        json.dump({
+            'weighted_score': avg_ws,
+            'total_flow_time': avg_tft,
+            'w2w_consistency': avg_w2w,
+        }, f, ensure_ascii=False, indent=2)
 
     html = render_html(summary)
     with open(output_dir / 'detailed_result.html', 'w', encoding='utf-8') as f:
