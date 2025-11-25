@@ -132,7 +132,6 @@ AUTHENTICATION_BACKENDS = (
     'utils.oauth_backends.ChahubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'django_su.backends.SuBackend',
-    'profiles.backends.EmailAuthenticationBackend',
 )
 
 SOCIAL_AUTH_PIPELINE = (

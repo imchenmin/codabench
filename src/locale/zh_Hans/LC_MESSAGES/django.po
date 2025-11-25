@@ -733,3 +733,18 @@ msgstr "在下方输入你的邮箱，我们会向你发送创建新密码的说
 #: src/templates/registration/password_reset_form.html:28
 msgid "email"
 msgstr "邮箱"
+# Password change localization additions
+msgid "old password"
+msgstr "旧密码"
+
+msgid "Password changed"
+msgstr "密码修改成功"
+
+msgid "Your password has been updated."
+msgstr "你的密码已更新。"
+
+msgid "Go to home"
+msgstr "返回首页"
+
+msgid "username"
+msgstr "用户名"

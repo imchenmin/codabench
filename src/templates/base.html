@@ -149,7 +149,7 @@
                                 <a class="item" href="{% url 'profiles:user_edit' username=user.username %}"></i><i class="icon bi bi-pencil-square"></i>{% trans "Edit profile" %}</a>
                                 <a class="item" href="{% url 'accounts:user_account' username=user.username %}"><i class="icon bi bi-gear"></i>{% trans "Settings" %}</a>
                                 <a class="item" href="{% url 'profiles:user_notifications' username=user.username %}"></i><i class="icon bi bi-bell"></i>{% trans "Notifications" %}</a>
-                                <a class="item" href="{% url 'accounts:password_reset' %}"><i class="icon bi bi-lock"></i>{% trans "Change Password" %}</a>
+                                <a class="item" href="{% url 'accounts:password_change' %}"><i class="icon bi bi-lock"></i>{% trans "Change Password" %}</a>
                                 <a class="item" href="{% url 'accounts:logout' %}"><i class="icon bi bi-door-open"></i>{% trans "Logout" %}</a>
                                 <div class="ui divider"></div>
 

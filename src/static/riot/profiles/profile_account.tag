@@ -1,4 +1,9 @@
 <profile-account>
+    <div id="change-password">
+        <h2 class="title">Change Password</h2>
+        <div class="ui divider"></div>
+        <a class="ui button" href="/accounts/password_change/">Change Password</a>
+    </div>
     <!-- Delete account section -->
     <div id="delete-account">
         <h2 class="title danger">Delete account</h2>

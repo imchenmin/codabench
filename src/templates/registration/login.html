@@ -33,7 +33,7 @@
                     <i class="user icon"></i>
                     <input type="text"
                            name="username"
-                           placeholder="{% trans "username or email" %}"
+                           placeholder="{% trans "username" %}"
                            id="id_username"
                            value="{{ form.username.value|default:''}}"
                            maxlength="{{ form.username.field.max_length }}"
@@ -69,12 +69,7 @@
                     {% endblocktrans %}
                 </p>
             {% endif %}
-            {% url 'accounts:password_reset' as password_reset_url %}
-            <p>
-                {% blocktrans trimmed with password_reset_url=password_reset_url %}
-                    <a href="{{ password_reset_url }}">Forgot your password?</a>
-                {% endblocktrans %}
-            </p>
+            
 
             <div class="ui error message"></div>
         </form>
