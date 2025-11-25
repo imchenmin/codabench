@@ -5,6 +5,9 @@ description: |
 image: images/logo.png
 terms: terms.md
 docker_image: your-org/codabench-multilang:latest
+enable_detailed_results: True
+show_detailed_results_in_submission_panel: True
+show_detailed_results_in_leaderboard: True
 
 pages:
   - title: 概览

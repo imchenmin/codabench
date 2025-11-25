@@ -1,0 +1,10 @@
+{
+	"case_id":	"case_01",
+	"machines":	[{
+			"machine_id":	"V1",
+			"timeline":	[]
+		}, {
+			"machine_id":	"V2",
+			"timeline":	[]
+		}]
+}
