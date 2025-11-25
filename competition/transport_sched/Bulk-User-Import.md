@@ -3,10 +3,11 @@
 ## 概述
 - 通过 CSV 批量创建用户，并将其加入指定比赛/基准。
 - 推荐使用 `make import-users`；也可直接使用 `manage.py import_users_to_competition`。
+ - 平台不发送邮件、默认不支持邮箱登录或邮件找回；密码管理通过“旧密码+新密码”修改或管理员后台重置。
 
 ## CSV 格式
 - 最少两列：`username,password`
-- 可选列：`email,is_active`
+- 可选列：`email,is_active`（邮箱为可选，导入时不会触发任何邮件）
 - 支持标题行，列名自动识别：`username,password,email,is_active`
 - 示例：
 
@@ -50,7 +51,7 @@ make import-users CSV=/path/users.csv OPTS="--competition-id 123 --dry-run"
 ## 行为说明
 - 新用户：
   - 默认 `is_active=True`；若传 `--inactive` 或 CSV `is_active=false` 则未激活。
-  - 若 CSV 提供 `email` 则写入；未开启 `--require-email` 时允许缺失。
+  - 若 CSV 提供 `email` 则写入；未开启 `--require-email` 时允许缺失；邮箱不参与登录或密码找回。
 - 已存在用户：
   - 可通过 `--reset-password` 重置密码。
   - 可通过 `--update-email` 更新邮箱（仅当 CSV 提供且不同）。
@@ -70,11 +71,12 @@ TEMP_SUBMISSION_STORAGE=/path/.tmp ./manage.py import_users_to_competition /path
   - 命令会统计为 `participants_existing`，不影响执行。
 
 - 不合法 CSV 行：
-  - 缺少必要列或空值会被跳过；启用 `--require-email` 时缺邮箱的行会被跳过。
+  - 缺少必要列或空值会被跳过；启用 `--require-email` 时缺邮箱的行会被跳过（仅用于数据完整性，不触发邮件）。
 
 ## 安全建议
 - 首次导入建议使用 `--dry-run` 验证统计结果。
 - 确保密码强度；避免将 CSV 存入版本库。
+ - 用户侧密码修改路径：`Profile/Settings -> Change Password`，通过输入旧密码与新密码完成重置。
 
 ## 相关代码与入口
 - 管理命令：`src/apps/commands/management/commands/import_users_to_competition.py`

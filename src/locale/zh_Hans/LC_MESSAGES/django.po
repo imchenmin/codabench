@@ -208,6 +208,10 @@ msgid ""
 "target=\"_blank\">Wiki</a> for more information."
 msgstr "对平台有疑问？请访问我们的 <a href=\"%(wiki_url)s\" target=\"_blank\">Wiki</a> 获取更多信息。"
 
+#: src/templates/base.html:232
+msgid "Chinese localization adapted by Chen Min"
+msgstr "由陈闽适配汉化"
+
 #: src/templates/base_simple.html:13
 msgid "Codalab Competitions"
 msgstr "Codalab 竞赛"
